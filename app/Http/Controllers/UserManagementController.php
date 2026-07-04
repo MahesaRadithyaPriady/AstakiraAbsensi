@@ -123,6 +123,15 @@ class UserManagementController extends Controller
         return redirect()->route('admin.users.index')->with('success', 'Pengguna berhasil dihapus.');
     }
 
+    public function resetPassword(User $user): RedirectResponse
+    {
+        $user->update([
+            'password' => 'password123',
+        ]);
+
+        return redirect()->route('admin.users.index')->with('success', "Password pengguna {$user->nama} berhasil direset ke: password123");
+    }
+
     private function generateNisp(): string
     {
         do {

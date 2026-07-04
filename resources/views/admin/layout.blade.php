@@ -56,8 +56,9 @@
                     Laporan
                 </a>
                 <p class="px-3 pt-4 pb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">Sistem</p>
-                <a href="#"
-                   class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-300 transition-colors hover:bg-white/5 hover:text-white">
+                <a href="{{ route('settings.index') }}"
+                   class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors
+                   {{ request()->routeIs('settings.*') ? 'bg-brand-blue text-white' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
                     <i data-lucide="settings" class="h-4 w-4"></i>
                     Pengaturan
                 </a>

@@ -8,6 +8,7 @@ use App\Http\Controllers\AdministratorLoginController;
 use App\Http\Controllers\PembimbingController;
 use App\Http\Controllers\PklDashboardController;
 use App\Http\Controllers\PklLaporanController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScanMachineController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\UserManagementController;
@@ -28,6 +29,12 @@ Route::get('/login', [UserLoginController::class, 'show'])->name('user.login');
 Route::post('/login', [UserLoginController::class, 'login']);
 Route::post('/logout', [UserLoginController::class, 'logout'])->name('user.logout');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/settings', [ProfileController::class, 'index'])->name('settings.index');
+    Route::put('/settings/profile', [ProfileController::class, 'updateProfile'])->name('settings.profile.update');
+    Route::put('/settings/password', [ProfileController::class, 'updatePassword'])->name('settings.password.update');
+});
+
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
@@ -37,6 +44,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/users/{user}/edit', [UserManagementController::class, 'edit'])->name('admin.users.edit');
     Route::put('/admin/users/{user}', [UserManagementController::class, 'update'])->name('admin.users.update');
     Route::delete('/admin/users/{user}', [UserManagementController::class, 'destroy'])->name('admin.users.destroy');
+    Route::post('/admin/users/{user}/reset-password', [UserManagementController::class, 'resetPassword'])->name('admin.users.reset-password');
 
     Route::get('/admin/pembimbing', [PembimbingController::class, 'index'])->name('admin.pembimbing.index');
     Route::get('/admin/pembimbing/{pembimbing}', [PembimbingController::class, 'show'])->name('admin.pembimbing.show');

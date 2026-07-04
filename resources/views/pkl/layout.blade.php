@@ -43,6 +43,12 @@
                     <i data-lucide="file-text" class="h-4 w-4"></i>
                     Laporan
                 </a>
+                <a href="{{ route('settings.index') }}"
+                   class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors
+                   {{ request()->routeIs('settings.*') ? 'bg-brand-blue text-white' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
+                    <i data-lucide="settings" class="h-4 w-4"></i>
+                    Pengaturan
+                </a>
             </nav>
 
             {{-- User card at bottom --}}
@@ -130,6 +136,12 @@
                {{ request()->routeIs('pkl.laporan*') ? 'text-brand-blue' : 'text-slate-500' }}">
                 <i data-lucide="file-text" class="h-5 w-5"></i>
                 <span>Laporan</span>
+            </a>
+            <a href="{{ route('settings.index') }}"
+               class="flex flex-1 flex-col items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium transition-colors
+               {{ request()->routeIs('settings.*') ? 'text-brand-blue' : 'text-slate-500' }}">
+                <i data-lucide="settings" class="h-5 w-5"></i>
+                <span>Pengaturan</span>
             </a>
             <form action="{{ route('user.logout') }}" method="POST" class="flex flex-1 justify-center">
                 @csrf

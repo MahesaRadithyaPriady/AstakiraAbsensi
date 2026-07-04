@@ -79,6 +79,15 @@
                                        title="Edit">
                                         <i data-lucide="pencil" class="h-4 w-4"></i>
                                     </a>
+                                    <form action="{{ route('admin.users.reset-password', $item) }}" method="POST"
+                                          onsubmit="return confirm('Yakin ingin mereset password pengguna ini ke: password123?')">
+                                        @csrf
+                                        <button type="submit"
+                                                class="rounded-lg p-2 text-slate-500 transition-colors hover:bg-amber-50 hover:text-amber-600"
+                                                title="Reset Password">
+                                            <i data-lucide="key-round" class="h-4 w-4"></i>
+                                        </button>
+                                    </form>
                                     <form action="{{ route('admin.users.destroy', $item) }}" method="POST"
                                           onsubmit="return confirm('Yakin ingin menghapus pengguna ini?')">
                                         @csrf
