@@ -2,6 +2,22 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import { bunny } from 'laravel-vite-plugin/fonts';
 import tailwindcss from '@tailwindcss/vite';
+import { networkInterfaces } from 'os';
+
+// Dynamically resolve local IPv4 address to avoid hardcoded IP timeouts when IP changes
+const getLocalIp = () => {
+    const nets = networkInterfaces();
+    for (const name of Object.keys(nets)) {
+        for (const net of nets[name]) {
+            if (net.family === 'IPv4' && !net.internal) {
+                return net.address;
+            }
+        }
+    }
+    return 'localhost';
+};
+
+const localIp = getLocalIp();
 
 export default defineConfig({
     plugins: [
@@ -22,7 +38,7 @@ export default defineConfig({
     server: {
         host: '0.0.0.0',
         hmr: {
-            host: '192.168.1.8',
+            host: localIp,
             protocol: 'http',
             port: 5173,
         },

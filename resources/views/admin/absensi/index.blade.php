@@ -16,11 +16,11 @@
     @endif
 
     {{-- Date picker --}}
-    <div class="mb-6 flex items-center gap-3">
-        <form method="GET" action="{{ route('admin.absensi.index') }}" class="flex items-center gap-3">
+    <div class="mb-6">
+        <form method="GET" action="{{ route('admin.absensi.index') }}" class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
             <label class="text-sm font-medium text-slate-600">Tanggal:</label>
             <input type="date" name="tanggal" value="{{ $selectedDate }}"
-                   class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm text-slate-800 focus:border-brand-blue focus:ring-2 focus:ring-primary-100 focus:outline-none">
+                   class="flex-1 sm:flex-initial rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm text-slate-800 focus:border-brand-blue focus:ring-2 focus:ring-primary-100 focus:outline-none">
             <button type="submit" class="inline-flex items-center gap-1.5 rounded-xl bg-brand-blue px-4 py-2 text-sm font-medium text-white hover:bg-deep-blue">
                 <i data-lucide="search" class="h-4 w-4"></i> Filter
             </button>
@@ -74,7 +74,8 @@
             <h2 class="text-base font-semibold text-navy">Absensi {{ \Carbon\Carbon::parse($selectedDate)->format('d M Y') }}</h2>
             <i data-lucide="calendar-check" class="h-5 w-5 text-slate-400"></i>
         </div>
-        <div class="overflow-x-auto">
+        <!-- Desktop Table -->
+        <div class="hidden md:block overflow-x-auto">
             <table class="w-full">
                 <thead>
                     <tr class="border-b border-slate-200 bg-slate-50">
@@ -108,19 +109,51 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Mobile Card List -->
+        <div class="block md:hidden divide-y divide-slate-100">
+            @forelse ($pklUsers as $user)
+                @php $absen = $absensisToday->get($user->id); $izin = $izinSakitsToday->get($user->id); @endphp
+                <div class="p-4 space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="h-9 w-9 overflow-hidden rounded-full bg-slate-200 shrink-0">
+                                @if ($user->foto_profile)<img src="{{ asset('storage/' . $user->foto_profile) }}" class="h-full w-full object-cover">@else<div class="flex h-full w-full items-center justify-center text-xs font-medium text-slate-500">{{ strtoupper(substr($user->nama, 0, 1)) }}</div>@endif
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-sm font-semibold text-slate-800 truncate">{{ $user->nama }}</p>
+                                <p class="text-xs text-slate-400">NISP: {{ $user->nisp ?? '-' }}</p>
+                            </div>
+                        </div>
+                        <div>
+                            @if ($izin)<span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold {{ $izin->jenis === 'sakit' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700' }}">{{ ucfirst($izin->jenis) }}</span>
+                            @elseif ($absen && $absen->jam_masuk)<span class="inline-flex rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold text-emerald-700">Hadir</span>
+                            @else<span class="inline-flex rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-500">Belum Absen</span>@endif
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-50 text-xs">
+                        <span class="text-slate-400">Jam Masuk:</span>
+                        <span class="font-medium text-slate-700">{{ $absen && $absen->jam_masuk ? \Carbon\Carbon::parse($absen->jam_masuk)->format('H:i') . ' WIB' : '-' }}</span>
+                    </div>
+                </div>
+            @empty
+                <div class="px-6 py-8 text-center text-sm text-slate-400">Belum ada PKL terdaftar.</div>
+            @endforelse
+        </div>
     </div>
 
     {{-- Riwayat Absensi --}}
     <div class="mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-slate-200 px-6 py-4">
             <h2 class="text-base font-semibold text-navy">Riwayat Absensi</h2>
-            <form method="GET" action="{{ route('admin.absensi.index') }}" class="flex items-center gap-2">
+            <form method="GET" action="{{ route('admin.absensi.index') }}" class="flex w-full sm:w-auto items-center gap-2">
                 <input type="hidden" name="tanggal" value="{{ request('tanggal') }}">
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama, NISP..." class="w-48 rounded-lg border border-slate-200 px-3 py-1.5 text-sm focus:border-brand-blue focus:ring-2 focus:ring-primary-100 focus:outline-none">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama, NISP..." class="flex-1 sm:w-48 rounded-lg border border-slate-200 px-3 py-1.5 text-sm focus:border-brand-blue focus:ring-2 focus:ring-primary-100 focus:outline-none">
                 <button type="submit" class="inline-flex items-center gap-1 rounded-lg bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-200"><i data-lucide="search" class="h-3.5 w-3.5"></i></button>
             </form>
         </div>
-        <div class="overflow-x-auto">
+        <!-- Desktop Table -->
+        <div class="hidden md:block overflow-x-auto">
             <table class="w-full">
                 <thead><tr class="border-b border-slate-200 bg-slate-50">
                     <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500">PKL</th>
@@ -151,29 +184,61 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Mobile Card List -->
+        <div class="block md:hidden divide-y divide-slate-100">
+            @forelse ($allAbsensis as $absensi)
+                <div class="p-4 space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="h-9 w-9 overflow-hidden rounded-full bg-slate-200 shrink-0">
+                                @if ($absensi->user->foto_profile)<img src="{{ asset('storage/' . $absensi->user->foto_profile) }}" class="h-full w-full object-cover">@else<div class="flex h-full w-full items-center justify-center text-xs font-medium text-slate-500">{{ strtoupper(substr($absensi->user->nama, 0, 1)) }}</div>@endif
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-sm font-semibold text-slate-800 truncate">{{ $absensi->user->nama }}</p>
+                                <p class="text-xs text-slate-400">NISP: {{ $absensi->user->nisp ?? '-' }}</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded">{{ $absensi->tanggal->format('d M Y') }}</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-50">
+                        <div class="text-xs">
+                            <span class="text-slate-400">Jam Masuk:</span>
+                            @if ($absensi->jam_masuk)<span class="font-semibold text-emerald-600 ml-1">{{ \Carbon\Carbon::parse($absensi->jam_masuk)->format('H:i') }} WIB</span>@else<span class="text-slate-400 ml-1">Belum scan</span>@endif
+                        </div>
+                        <form action="{{ route('admin.absensi.destroy', $absensi) }}" method="POST" onsubmit="return confirm('Hapus data absensi ini?')">@csrf @method('DELETE')
+                            <button type="submit" class="inline-flex items-center gap-1 rounded-lg bg-red-50 px-2.5 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-100"><i data-lucide="trash-2" class="h-3.5 w-3.5"></i> Hapus</button>
+                        </form>
+                    </div>
+                </div>
+            @empty
+                <div class="px-6 py-8 text-center text-sm text-slate-400">Belum ada data absensi.</div>
+            @endforelse
+        </div>
         @if ($allAbsensis->hasPages())<div class="border-t border-slate-200 px-6 py-4">{{ $allAbsensis->appends(request()->query())->links() }}</div>@endif
     </div>
 
     {{-- Pengajuan Izin/Sakit --}}
     <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-slate-200 px-6 py-4">
             <h2 class="text-base font-semibold text-navy">Pengajuan Izin/Sakit</h2>
-            <form method="GET" action="{{ route('admin.absensi.index') }}" class="flex items-center gap-2" id="izin-filter">
+            <form method="GET" action="{{ route('admin.absensi.index') }}" class="flex w-full sm:w-auto items-center gap-2" id="izin-filter">
                 <input type="hidden" name="tanggal" value="{{ request('tanggal') }}">
-                <select name="status_izin" onchange="document.getElementById('izin-filter').submit()" class="rounded-lg border border-slate-200 px-3 py-1.5 text-sm focus:border-brand-blue focus:ring-2 focus:ring-primary-100 focus:outline-none">
+                <select name="status_izin" onchange="document.getElementById('izin-filter').submit()" class="flex-1 sm:flex-initial rounded-lg border border-slate-200 px-3 py-1.5 text-sm focus:border-brand-blue focus:ring-2 focus:ring-primary-100 focus:outline-none">
                     <option value="">Semua Status</option>
                     <option value="pending" {{ request('status_izin') === 'pending' ? 'selected' : '' }}>Pending</option>
                     <option value="approved" {{ request('status_izin') === 'approved' ? 'selected' : '' }}>Disetujui</option>
                     <option value="rejected" {{ request('status_izin') === 'rejected' ? 'selected' : '' }}>Ditolak</option>
                 </select>
-                <select name="jenis_izin" onchange="document.getElementById('izin-filter').submit()" class="rounded-lg border border-slate-200 px-3 py-1.5 text-sm focus:border-brand-blue focus:ring-2 focus:ring-primary-100 focus:outline-none">
+                <select name="jenis_izin" onchange="document.getElementById('izin-filter').submit()" class="flex-1 sm:flex-initial rounded-lg border border-slate-200 px-3 py-1.5 text-sm focus:border-brand-blue focus:ring-2 focus:ring-primary-100 focus:outline-none">
                     <option value="">Semua Jenis</option>
                     <option value="izin" {{ request('jenis_izin') === 'izin' ? 'selected' : '' }}>Izin</option>
                     <option value="sakit" {{ request('jenis_izin') === 'sakit' ? 'selected' : '' }}>Sakit</option>
                 </select>
             </form>
         </div>
-        <div class="overflow-x-auto">
+        <!-- Desktop Table -->
+        <div class="hidden md:block overflow-x-auto">
             <table class="w-full">
                 <thead><tr class="border-b border-slate-200 bg-slate-50">
                     <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500">Pengguna</th>
@@ -213,6 +278,54 @@
                     @empty<tr><td colspan="7" class="px-6 py-12 text-center text-sm text-slate-400">Belum ada pengajuan.</td></tr>@endforelse
                 </tbody>
             </table>
+        </div>
+
+        <!-- Mobile Card List -->
+        <div class="block md:hidden divide-y divide-slate-100">
+            @forelse ($izinSakits as $izin)
+                <div class="p-4 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="h-9 w-9 overflow-hidden rounded-full bg-slate-200 shrink-0">
+                                @if ($izin->user->foto_profile)<img src="{{ asset('storage/' . $izin->user->foto_profile) }}" class="h-full w-full object-cover">@else<div class="flex h-full w-full items-center justify-center text-xs font-medium text-slate-500">{{ strtoupper(substr($izin->user->nama, 0, 1)) }}</div>@endif
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-sm font-semibold text-slate-800 truncate">{{ $izin->user->nama }}</p>
+                                <p class="text-xs text-slate-400">NISP: {{ $izin->user->nisp ?? '-' }}</p>
+                            </div>
+                        </div>
+                        <span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold {{ $izin->jenis === 'sakit' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700' }}">{{ ucfirst($izin->jenis) }}</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs pt-1">
+                        <div>
+                            <span class="text-slate-400 block">Tanggal:</span>
+                            <span class="font-medium text-slate-700">{{ $izin->tanggal->format('d M Y') }}@if ($izin->sampai_tanggal) s/d {{ $izin->sampai_tanggal->format('d M Y') }}@endif</span>
+                        </div>
+                        <div>
+                            <span class="text-slate-400 block">Surat:</span>
+                            @if ($izin->surat)<a href="{{ asset('storage/' . $izin->surat) }}" target="_blank" class="inline-flex items-center gap-1 font-semibold text-brand-blue hover:underline"><i data-lucide="file" class="h-3.5 w-3.5"></i> Lihat Surat</a>@else<span class="text-slate-400">-</span>@endif
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-xs text-slate-400">Keterangan:</span>
+                        <p class="text-xs text-slate-700 bg-slate-50 p-2 rounded-lg border border-slate-100">{{ $izin->keterangan }}</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-3 border-t border-slate-50">
+                        <div>
+                            <span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold {{ $izin->status_approval === 'pending' ? 'bg-amber-100 text-amber-700' : ($izin->status_approval === 'approved' ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700') }}">{{ ucfirst($izin->status_approval) }}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            @if ($izin->status_approval === 'pending')
+                                <form action="{{ route('admin.absensi.approve', $izin) }}" method="POST" onsubmit="return confirm('Setujui pengajuan ini?')">@csrf<button class="inline-flex items-center gap-1 rounded-lg bg-emerald-50 px-2.5 py-1.5 text-xs font-semibold text-emerald-600 hover:bg-emerald-100"><i data-lucide="check" class="h-3.5 w-3.5"></i> Setujui</button></form>
+                                <form action="{{ route('admin.absensi.reject', $izin) }}" method="POST" onsubmit="return confirm('Tolak pengajuan ini?')">@csrf<button class="inline-flex items-center gap-1 rounded-lg bg-red-50 px-2.5 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-100"><i data-lucide="x" class="h-3.5 w-3.5"></i> Tolak</button></form>
+                            @else<span class="text-[10px] text-slate-400 mr-1">Oleh: {{ $izin->approver?->nama ?? '-' }}</span>@endif
+                            <form action="{{ route('admin.absensi.izin.destroy', $izin) }}" method="POST" onsubmit="return confirm('Hapus data izin/sakit ini?')">@csrf @method('DELETE')<button class="inline-flex items-center gap-1 rounded-lg bg-slate-50 p-1.5 text-slate-500 hover:bg-slate-100"><i data-lucide="trash-2" class="h-3.5 w-3.5"></i></button></form>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="px-6 py-8 text-center text-sm text-slate-400">Belum ada pengajuan.</div>
+            @endforelse
         </div>
         @if ($izinSakits->hasPages())<div class="border-t border-slate-200 px-6 py-4">{{ $izinSakits->appends(request()->query())->links() }}</div>@endif
     </div>

@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
@@ -28,4 +30,231 @@
     --color-primary-700: #0d2b55;
     --color-primary-800: #0a1628;
     --color-primary-900: #050b14;
+}
+
+/* Light Mode Defaults (sebagai fallback atau base variable jika belum ada) */
+:root {
+  --color-surface-page:    #f8fafc;   /* slate-50 */
+  --color-surface-card:    #ffffff;   /* white */
+  --color-surface-elevated:#ffffff;   /* white */
+  --color-surface-sidebar: #0a1628;   /* navy (Astakira default) */
+  --color-surface-header:  #ffffff;
+  --color-surface-hover:   #f1f5f9;   /* slate-100 */
+  --color-surface-border:  #e2e8f0;   /* slate-200 */
+
+  --color-text-primary:    #0f172a;   /* slate-900 */
+  --color-text-secondary:  #475569;   /* slate-600 */
+  --color-text-muted:      #94a3b8;   /* slate-400 */
+  
+  --color-primary-main:    #0b5ed7;   
+  --color-primary-light:   #3b82f6;
+  --color-primary-dark:    #0d2b55;
+  
+  --color-success:         #10b981;
+  --color-warning:         #f59e0b;
+  --color-danger:          #ef4444;
+  --color-info:            #0ea5e9;
+}
+
+/* ═══════════════════════════════════════════
+   DARK MODE — Astakira Attendance System
+   Diaktifkan via class .dark atau [data-theme="dark"]
+   Harus setelah :root agar override berlaku (specificity sama)
+ ═══════════════════════════════════════════ */
+
+.dark {
+  /* Surface — background & elevation */
+  --color-surface-page:    #0a1628;   /* navy, sama seperti sidebar light mode */
+  --color-surface-card:    #101f38;   /* sedikit lebih terang dari page bg */
+  --color-surface-elevated:#152945;   /* modal, dropdown, popover */
+  --color-surface-sidebar: #050b14;   /* lebih gelap dari page agar sidebar tetap "terpisah" */
+  --color-surface-header:  #101f38;
+  --color-surface-hover:   rgba(255,255,255,0.04);
+  --color-surface-border:  rgba(255,255,255,0.08);
+
+  /* Text */
+  --color-text-primary:    #f8faff;   /* off-white */
+  --color-text-secondary:  #94a3b8;   /* slate-400 */
+  --color-text-muted:      #64748b;   /* slate-500 */
+
+  /* Brand / Primary overrides (optional jika butuh saturasi berbeda di dark mode) */
+  --color-primary-main:    #3b82f6;   /* electric blue */
+  --color-primary-light:   #60a5fa;   /* sky accent */
+  --color-primary-dark:    #0b5ed7;   /* brand blue */
+
+  /* Status / Semantic (opsional) */
+  --color-success:         #10b981;   /* emerald-500 */
+  --color-warning:         #f59e0b;   /* amber-500 */
+  --color-danger:          #ef4444;   /* red-500 */
+  --color-info:            #0ea5e9;   /* sky-500 */
+
+  /* Override Tailwind default colors for dark mode */
+  --color-navy:        #f8faff;
+  --color-off-white:   #0a1628;
+  --color-slate-50:    #152945;
+  --color-slate-100:   #1a2d4a;
+  --color-slate-200:   #1e293b;
+  --color-slate-500:   #94a3b8;
+  --color-slate-600:   #94a3b8;
+  --color-slate-700:   #cbd5e1;
+  --color-slate-800:   #e2e8f0;
+  --color-slate-900:   #f8faff;
+  --color-primary-50:  rgba(59, 130, 246, 0.12);
+  --color-primary-100: rgba(59, 130, 246, 0.18);
+
+  /* Form input muted text */
+  --color-slate-400:   #64748b;
+
+  /* Status: Red — semi-transparent bg, lighter text */
+  --color-red-50:      rgba(239, 68, 68, 0.08);
+  --color-red-100:     rgba(239, 68, 68, 0.12);
+  --color-red-200:     rgba(239, 68, 68, 0.2);
+  --color-red-500:     #f87171;
+
+  /* Status: Emerald */
+  --color-emerald-50:  rgba(16, 185, 129, 0.08);
+  --color-emerald-100: rgba(16, 185, 129, 0.12);
+  --color-emerald-200: rgba(16, 185, 129, 0.2);
+
+  /* Status: Amber */
+  --color-amber-50:    rgba(245, 158, 11, 0.08);
+  --color-amber-100:   rgba(245, 158, 11, 0.12);
+  --color-amber-200:   rgba(245, 158, 11, 0.2);
+
+  /* Status: Purple */
+  --color-purple-50:   rgba(168, 85, 247, 0.08);
+  --color-purple-100:  rgba(168, 85, 247, 0.12);
+  --color-purple-200:  rgba(168, 85, 247, 0.2);
+
+  /* Brand — brighter for dark mode contrast */
+  --color-brand-blue:  #3b82f6;
+  --color-deep-blue:   #1e40af;
+}
+
+/* ═══════════════════════════════════════════
+   UTILITY CLASSES TAMBAHAN
+ ═══════════════════════════════════════════ */
+body {
+  background-color: var(--color-surface-page);
+  color: var(--color-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.card-surface {
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-surface-border);
+}
+
+.text-primary-color {
+  color: var(--color-text-primary);
+}
+
+.text-secondary-color {
+  color: var(--color-text-secondary);
+}
+
+.border-surface {
+  border-color: var(--color-surface-border);
+}
+
+.dark .bg-white {
+  background-color: var(--color-surface-card);
+}
+
+.dark .focus\:bg-white:focus {
+  background-color: var(--color-surface-elevated);
+}
+
+.sidebar-surface {
+  background-color: var(--color-surface-sidebar);
+}
+
+/* ═══════════════════════════════════════════
+   DARK MODE — TEXT & BORDER UTILITY OVERRIDES
+ ═══════════════════════════════════════════ */
+.dark .text-red-600     { color: #f87171; }
+.dark .text-red-700     { color: #fca5a5; }
+.dark .text-emerald-600 { color: #34d399; }
+.dark .text-emerald-700 { color: #6ee7b7; }
+.dark .text-amber-600   { color: #fbbf24; }
+.dark .text-amber-700   { color: #fcd34d; }
+.dark .text-purple-600  { color: #c084fc; }
+.dark .text-purple-700  { color: #d8b4fe; }
+
+.dark .border-slate-300 {
+  border-color: #334155;
+}
+.dark .hover\:border-slate-300:hover {
+  border-color: #334155;
+}
+
+/* ═══════════════════════════════════════════
+   DARK MODE — NATIVE INPUT & FORM CONTROLS
+ ═══════════════════════════════════════════ */
+.dark {
+  color-scheme: dark;
+}
+
+.dark input[type="date"],
+.dark input[type="time"],
+.dark input[type="datetime-local"],
+.dark input[type="month"],
+.dark input[type="week"] {
+  color-scheme: dark;
+}
+.dark input[type="date"]::-webkit-calendar-picker-indicator,
+.dark input[type="time"]::-webkit-calendar-picker-indicator,
+.dark input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+.dark input[type="month"]::-webkit-calendar-picker-indicator,
+.dark input[type="week"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.dark select option {
+  background-color: #0a1628;
+  color: #f8faff;
+}
+.dark select option:checked,
+.dark select option:hover {
+  background-color: rgba(59, 130, 246, 0.25);
+}
+
+.dark input[type="checkbox"],
+.dark input[type="radio"] {
+  accent-color: #3b82f6;
+}
+
+.dark input[type="file"]::file-selector-button {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+.dark input[type="file"]:hover::file-selector-button {
+  background-color: rgba(59, 130, 246, 0.25);
+}
+
+.dark .placeholder-slate-400::placeholder,
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #64748b;
+}
+
+.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #0a1628;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+.dark * {
+  scrollbar-color: #1e293b #0a1628;
 }

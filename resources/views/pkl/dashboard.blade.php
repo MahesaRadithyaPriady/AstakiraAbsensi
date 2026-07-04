@@ -4,7 +4,7 @@
 
 @section('content')
     {{-- Welcome banner --}}
-    <div class="mb-6 overflow-hidden rounded-2xl bg-gradient-to-br from-navy via-deep-blue to-brand-blue p-6 text-white shadow-lg">
+    <div class="mb-6 overflow-hidden rounded-2xl bg-gradient-to-br from-[#0a1628] via-[#0d2b55] to-[#0b5ed7] p-6 text-white shadow-lg">
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="text-2xl font-bold">Halo, {{ $user->nama }}!</h2>

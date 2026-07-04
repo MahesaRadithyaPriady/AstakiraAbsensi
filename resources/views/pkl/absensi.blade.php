@@ -69,7 +69,7 @@
                                     <p class="text-sm text-slate-400">Memuat QR...</p>
                                 </div>
                             </div>
-                            <div id="qr-display" class="hidden rounded-xl border-2 border-slate-200 bg-white p-4">
+                            <div id="qr-display" class="hidden rounded-xl border-2 border-slate-200 bg-white dark:!bg-white p-4">
                                 <canvas id="qr-canvas"></canvas>
                             </div>
                         </div>

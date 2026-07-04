@@ -81,7 +81,8 @@
 
     {{-- Table --}}
     <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <div class="overflow-x-auto">
+        <!-- Desktop Table -->
+        <div class="hidden md:block overflow-x-auto">
             <table class="w-full text-left text-sm">
                 <thead class="border-b border-slate-200 bg-slate-50 text-xs uppercase text-slate-400">
                     <tr>
@@ -165,6 +166,77 @@
                     @endforelse
                 </tbody>
             </table>
+        </div>
+
+        <!-- Mobile Card List -->
+        <div class="block md:hidden divide-y divide-slate-100">
+            @forelse ($laporans as $laporan)
+                <div class="p-4 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-slate-200 text-xs font-medium text-slate-600 shrink-0">
+                                {{ strtoupper(substr($laporan->user->nama, 0, 1)) }}
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-sm font-semibold text-slate-800 truncate">{{ $laporan->user->nama }}</p>
+                                <p class="text-xs text-slate-500 mt-0.5">{{ $laporan->tanggal->format('d M Y') }}</p>
+                            </div>
+                        </div>
+                        <div>
+                            @if ($laporan->status === 'pending')
+                                <span class="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-700">
+                                    <i data-lucide="clock" class="h-3 w-3"></i> Menunggu
+                                </span>
+                            @elseif ($laporan->status === 'validated')
+                                <span class="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-700">
+                                    <i data-lucide="check-circle" class="h-3 w-3"></i> Divalidasi
+                                </span>
+                            @elseif ($laporan->status === 'rejected')
+                                <span class="inline-flex items-center gap-1 rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-700">
+                                    <i data-lucide="x-circle" class="h-3 w-3"></i> Ditolak
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="text-xs text-slate-400">Keterangan:</p>
+                        <p class="text-xs text-slate-700 line-clamp-3 bg-slate-50 p-2.5 rounded-xl border border-slate-100">{{ $laporan->keterangan }}</p>
+                    </div>
+                    @if ($laporan->foto)
+                        <div class="flex items-center gap-2 pt-1">
+                            <span class="text-xs text-slate-400 mr-1">Foto Kegiatan:</span>
+                            <div class="flex gap-1.5">
+                                @foreach (array_slice($laporan->foto, 0, 3) as $foto)
+                                    <img src="{{ asset('storage/' . $foto) }}" alt="Foto" class="h-10 w-10 rounded-lg object-cover border border-slate-200">
+                                @endforeach
+                                @if (count($laporan->foto) > 3)
+                                    <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-xs text-slate-400">+{{ count($laporan->foto) - 3 }}</span>
+                                @endif
+                            </div>
+                        </div>
+                    @endif
+                    <div class="flex items-center justify-between pt-3 border-t border-slate-50">
+                        <p class="text-xs text-slate-400">NISP: <span class="font-medium text-slate-600">{{ $laporan->user->nisp ?? '-' }}</span></p>
+                        <div class="flex items-center gap-2">
+                            <a href="{{ route('admin.laporan.show', $laporan) }}"
+                               class="rounded-lg bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-200">
+                                Detail
+                            </a>
+                            @if ($laporan->status === 'pending')
+                                <form action="{{ route('admin.laporan.validate', $laporan) }}" method="POST" class="inline">
+                                    @csrf
+                                    <input type="hidden" name="status" value="validated">
+                                    <button type="submit" class="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-emerald-700 shadow-sm">
+                                        Validasi
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="px-6 py-12 text-center text-sm text-slate-400">Tidak ada laporan.</div>
+            @endforelse
         </div>
 
         @if ($laporans->hasPages())

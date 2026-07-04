@@ -103,6 +103,56 @@ AstaKira Attendance System mengadopsi pendekatan desain **"Clean Corporate Autho
 
 ---
 
+
+/* ═══════════════════════════════════════════
+   DARK MODE — Astakira Attendance System
+   Diaktifkan via class .dark atau [data-theme="dark"]
+ ═══════════════════════════════════════════ */
+
+.dark {
+  /* Surface — background & elevation */
+  --color-surface-page:    #0a1628;   /* navy, sama seperti sidebar light mode */
+  --color-surface-card:    #101f38;   /* sedikit lebih terang dari page bg */
+  --color-surface-elevated:#152945;   /* modal, dropdown, popover */
+  --color-surface-sidebar: #050b14;   /* lebih gelap dari page agar sidebar tetap "terpisah" */
+  --color-surface-header:  #101f38;
+  --color-surface-hover:   rgba(255,255,255,0.04);
+  --color-surface-border:  rgba(255,255,255,0.08);
+
+  /* Text */
+  --color-text-primary:    #f8faff;   /* off-white, judul & isi utama */
+  --color-text-secondary:  #94a3b8;   /* slate-400, body sekunder */
+  --color-text-tertiary:   #64748b;   /* slate-500, caption/label */
+  --color-text-disabled:   #475569;
+
+  /* Brand — accent sedikit lebih terang agar kontras di bg gelap */
+  --color-primary-400: #60a5fa;   /* dipakai untuk link, hover state */
+  --color-primary-500: #3b82f6;   /* dipakai untuk primary button bg (bukan 600) */
+  --color-primary-600: #0b5ed7;   /* dipakai untuk active/pressed state */
+  --color-primary-glow: rgba(59, 130, 246, 0.35);
+
+  /* Status — dinaikkan brightness-nya, saturasi diturunkan sedikit */
+  --color-success-500: #3b82f6;
+  --color-success-bg:  rgba(59, 130, 246, 0.12);
+  --color-success-text:#93c5fd;
+
+  --color-warning-500: #fbbf24;
+  --color-warning-bg:  rgba(251, 191, 36, 0.12);
+  --color-warning-text:#fcd34d;
+
+  --color-danger-500:  #f87171;
+  --color-danger-bg:   rgba(248, 113, 113, 0.12);
+  --color-danger-text: #fca5a5;
+
+  --color-info-500:    #60a5fa;
+  --color-info-bg:     rgba(96, 165, 250, 0.12);
+  --color-info-text:   #93c5fd;
+
+  /* Shadow — di dark mode shadow diganti jadi border/glow, bukan drop shadow gelap */
+  --shadow-card:       0 0 0 1px rgba(255,255,255,0.06);
+  --shadow-card-hover: 0 0 0 1px rgba(255,255,255,0.1), 0 8px 24px -8px rgba(59,130,246,0.25);
+}
+
 ## 3. Typography
 
 ### 3.1 Font Stack

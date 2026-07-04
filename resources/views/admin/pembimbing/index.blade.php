@@ -16,7 +16,8 @@
     @endif
 
     <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <div class="overflow-x-auto">
+        <!-- Desktop Table -->
+        <div class="hidden md:block overflow-x-auto">
             <table class="w-full">
                 <thead>
                     <tr class="border-b border-slate-200 bg-slate-50">
@@ -64,6 +65,43 @@
                     @endforelse
                 </tbody>
             </table>
+        </div>
+
+        <!-- Mobile Card List -->
+        <div class="block md:hidden divide-y divide-slate-100">
+            @forelse ($pembimbings as $pembimbing)
+                <div class="p-4 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="h-10 w-10 overflow-hidden rounded-full bg-slate-200 shrink-0">
+                                @if ($pembimbing->foto_profile)
+                                    <img src="{{ asset('storage/' . $pembimbing->foto_profile) }}" alt="{{ $pembimbing->nama }}" class="h-full w-full object-cover">
+                                @else
+                                    <div class="flex h-full w-full items-center justify-center text-sm font-medium text-slate-500">
+                                        {{ strtoupper(substr($pembimbing->nama, 0, 1)) }}
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-sm font-semibold text-slate-800 truncate">{{ $pembimbing->nama }}</p>
+                                <p class="text-xs text-slate-500 mt-0.5 truncate">{{ $pembimbing->email }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-50">
+                        <span class="inline-flex items-center rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-semibold text-purple-700">
+                            {{ $pembimbing->anak_pkl_count }} PKL
+                        </span>
+                        <a href="{{ route('admin.pembimbing.show', $pembimbing) }}"
+                           class="inline-flex items-center gap-1 rounded-lg bg-slate-100 px-3 py-1.5 text-xs font-semibold text-brand-blue hover:bg-primary-50">
+                            <i data-lucide="users" class="h-3.5 w-3.5"></i>
+                            Kelola Anak PKL
+                        </a>
+                    </div>
+                </div>
+            @empty
+                <div class="px-6 py-12 text-center text-sm text-slate-400">Belum ada pembimbing terdaftar.</div>
+            @endforelse
         </div>
 
         @if ($pembimbings->hasPages())
