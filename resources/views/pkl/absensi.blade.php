@@ -123,11 +123,16 @@
             <div class="border-b border-slate-100 bg-primary-50/50 px-6 py-3">
                 <div class="flex items-start gap-2.5">
                     <i data-lucide="heart-handshake" class="mt-0.5 h-4 w-4 shrink-0 text-brand-blue"></i>
-                    <div>
+                    <div class="flex-1">
                         <p class="text-xs font-medium text-navy">Doa untuk Anda</p>
                         <p class="mt-0.5 text-xs leading-relaxed text-slate-500">
                             "Semoga Allah memberikan kesembuhan bagi yang sakit dan memudahkan urusan bagi yang mengajukan izin. Semoga kesehatan dan keberkahan selalu menyertai Anda dalam menjalani PKL."
                         </p>
+                        <button id="doa-love-btn" type="button"
+                                class="mt-2 inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-xs font-medium text-slate-400 transition-all hover:text-rose-500">
+                            <i data-lucide="heart" class="h-4 w-4"></i>
+                            <span id="doa-love-count">0</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -515,5 +520,29 @@
     @elseif ($izinSakitToday && $izinSakitToday->status_approval !== 'approved' && !($absensiToday && $absensiToday->jam_masuk))
         generateQr();
     @endif
+
+    // --- Doa Love Button ---
+    const doaLoveBtn = document.getElementById('doa-love-btn');
+    const doaLoveCount = document.getElementById('doa-love-count');
+    let doaLoved = false;
+    let doaCount = 0;
+
+    if (doaLoveBtn) {
+        doaLoveBtn.addEventListener('click', function() {
+            doaLoved = !doaLoved;
+            if (doaLoved) {
+                doaCount++;
+                doaLoveBtn.classList.remove('text-slate-400');
+                doaLoveBtn.classList.add('text-rose-500');
+                doaLoveBtn.querySelector('i').setAttribute('fill', 'currentColor');
+            } else {
+                doaCount--;
+                doaLoveBtn.classList.add('text-slate-400');
+                doaLoveBtn.classList.remove('text-rose-500');
+                doaLoveBtn.querySelector('i').removeAttribute('fill');
+            }
+            doaLoveCount.textContent = doaCount;
+        });
+    }
 </script>
 @endpush
