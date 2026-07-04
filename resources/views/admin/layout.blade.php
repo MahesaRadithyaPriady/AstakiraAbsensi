@@ -63,6 +63,12 @@
                     <i data-lucide="file-text" class="h-4 w-4 shrink-0"></i>
                     <span class="sidebar-label">Laporan</span>
                 </a>
+                <a href="{{ route('admin.sop.index') }}"
+                   class="sidebar-nav-item flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors
+                   {{ request()->routeIs('admin.sop.*') ? 'bg-brand-blue text-white' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
+                    <i data-lucide="clipboard-list" class="h-4 w-4 shrink-0"></i>
+                    <span class="sidebar-label">SOP PKL</span>
+                </a>
                 <p class="px-3 pt-4 pb-2 text-xs font-semibold uppercase tracking-wider text-slate-500 sidebar-label">Sistem</p>
                 <a href="{{ route('settings.index') }}"
                    class="sidebar-nav-item flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors
@@ -139,43 +145,72 @@
         </div>
 
         {{-- Bottom Navigation for Mobile --}}
-        <nav class="fixed bottom-0 left-0 right-0 z-40 flex h-16 card-surface px-2 pb-safe shadow-lg lg:hidden items-center justify-around">
-            <a href="{{ route('admin.dashboard') }}" 
-               class="flex flex-col items-center justify-center flex-1 py-1 transition-colors
-               {{ request()->routeIs('admin.dashboard') ? 'text-brand-blue font-semibold' : 'text-slate-400 hover:text-slate-600' }}">
-                <i data-lucide="layout-dashboard" class="h-5 w-5"></i>
-                <span class="text-[10px] mt-1">Dashboard</span>
-            </a>
-            <a href="{{ route('admin.users.index') }}" 
-               class="flex flex-col items-center justify-center flex-1 py-1 transition-colors
-               {{ request()->routeIs('admin.users.*') ? 'text-brand-blue font-semibold' : 'text-slate-400 hover:text-slate-600' }}">
-                <i data-lucide="users" class="h-5 w-5"></i>
-                <span class="text-[10px] mt-1">Pengguna</span>
-            </a>
-            <a href="{{ route('admin.pembimbing.index') }}" 
-               class="flex flex-col items-center justify-center flex-1 py-1 transition-colors
-               {{ request()->routeIs('admin.pembimbing.*') ? 'text-brand-blue font-semibold' : 'text-slate-400 hover:text-slate-600' }}">
-                <i data-lucide="user-check" class="h-5 w-5"></i>
-                <span class="text-[10px] mt-1">Pembimbing</span>
-            </a>
-            <a href="{{ route('admin.absensi.index') }}" 
-               class="flex flex-col items-center justify-center flex-1 py-1 transition-colors
-               {{ request()->routeIs('admin.absensi.*') ? 'text-brand-blue font-semibold' : 'text-slate-400 hover:text-slate-600' }}">
-                <i data-lucide="calendar-check" class="h-5 w-5"></i>
-                <span class="text-[10px] mt-1">Absensi</span>
-            </a>
-            <a href="{{ route('admin.laporan.index') }}" 
-               class="flex flex-col items-center justify-center flex-1 py-1 transition-colors
-               {{ request()->routeIs('admin.laporan.*') ? 'text-brand-blue font-semibold' : 'text-slate-400 hover:text-slate-600' }}">
-                <i data-lucide="file-text" class="h-5 w-5"></i>
-                <span class="text-[10px] mt-1">Laporan</span>
-            </a>
-            <a href="{{ route('settings.index') }}" 
-               class="flex flex-col items-center justify-center flex-1 py-1 transition-colors
-               {{ request()->routeIs('settings.*') ? 'text-brand-blue font-semibold' : 'text-slate-400 hover:text-slate-600' }}">
-                <i data-lucide="settings" class="h-5 w-5"></i>
-                <span class="text-[10px] mt-1">Setelan</span>
-            </a>
+        <nav class="fixed bottom-0 left-0 right-0 z-40 card-surface shadow-lg lg:hidden">
+            {{-- Expandable "Lainnya" panel --}}
+            <div id="more-panel" class="border-b border-slate-200 px-4">
+                <div class="grid grid-cols-3 gap-2">
+                    <a href="{{ route('admin.pembimbing.index') }}"
+                       class="flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 text-xs font-medium transition-colors
+                       {{ request()->routeIs('admin.pembimbing.*') ? 'bg-primary-50 text-brand-blue' : 'text-slate-600 hover:bg-slate-100' }}">
+                        <i data-lucide="user-check" class="h-5 w-5"></i>
+                        <span>Pembimbing</span>
+                    </a>
+                    <a href="{{ route('admin.laporan.index') }}"
+                       class="flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 text-xs font-medium transition-colors
+                       {{ request()->routeIs('admin.laporan.*') ? 'bg-primary-50 text-brand-blue' : 'text-slate-600 hover:bg-slate-100' }}">
+                        <i data-lucide="file-text" class="h-5 w-5"></i>
+                        <span>Laporan</span>
+                    </a>
+                    <a href="{{ route('admin.sop.index') }}"
+                       class="flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 text-xs font-medium transition-colors
+                       {{ request()->routeIs('admin.sop.*') ? 'bg-primary-50 text-brand-blue' : 'text-slate-600 hover:bg-slate-100' }}">
+                        <i data-lucide="clipboard-list" class="h-5 w-5"></i>
+                        <span>SOP PKL</span>
+                    </a>
+                    <a href="{{ route('settings.index') }}"
+                       class="flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 text-xs font-medium transition-colors
+                       {{ request()->routeIs('settings.*') ? 'bg-primary-50 text-brand-blue' : 'text-slate-600 hover:bg-slate-100' }}">
+                        <i data-lucide="settings" class="h-5 w-5"></i>
+                        <span>Setelan</span>
+                    </a>
+                    <form action="{{ route('administrator.logout') }}" method="POST" class="flex flex-col items-center">
+                        @csrf
+                        <button type="submit"
+                                class="flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 text-xs font-medium text-slate-600 transition-colors hover:bg-red-50 hover:text-red-600 w-full">
+                            <i data-lucide="log-out" class="h-5 w-5"></i>
+                            <span>Keluar</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            {{-- Main 4 tabs --}}
+            <div class="flex items-center justify-around px-2 py-2">
+                <a href="{{ route('admin.dashboard') }}"
+                   class="flex flex-1 flex-col items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium transition-colors
+                   {{ request()->routeIs('admin.dashboard') ? 'text-brand-blue' : 'text-slate-500' }}">
+                    <i data-lucide="layout-dashboard" class="h-5 w-5"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="{{ route('admin.users.index') }}"
+                   class="flex flex-1 flex-col items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium transition-colors
+                   {{ request()->routeIs('admin.users.*') ? 'text-brand-blue' : 'text-slate-500' }}">
+                    <i data-lucide="users" class="h-5 w-5"></i>
+                    <span>Pengguna</span>
+                </a>
+                <a href="{{ route('admin.absensi.index') }}"
+                   class="flex flex-1 flex-col items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium transition-colors
+                   {{ request()->routeIs('admin.absensi.*') ? 'text-brand-blue' : 'text-slate-500' }}">
+                    <i data-lucide="calendar-check" class="h-5 w-5"></i>
+                    <span>Absensi</span>
+                </a>
+                <button type="button" id="more-toggle"
+                        class="flex flex-1 flex-col items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium transition-colors
+                        {{ request()->routeIs('admin.pembimbing.*') || request()->routeIs('admin.laporan.*') || request()->routeIs('admin.sop.*') || request()->routeIs('settings.*') ? 'text-brand-blue' : 'text-slate-500' }}">
+                    <i data-lucide="menu" class="h-5 w-5"></i>
+                    <span>Lainnya</span>
+                </button>
+            </div>
         </nav>
     </div>
 
@@ -226,6 +261,14 @@
         var sidebarToggle = document.getElementById('sidebar-toggle');
         var sidebarExpandIcon = document.getElementById('sidebar-expand-icon');
         var sidebarCollapseIcon = document.getElementById('sidebar-collapse-icon');
+
+        // Bottom nav "Lainnya" panel toggle
+        var moreToggle = document.getElementById('more-toggle');
+        var morePanel = document.getElementById('more-panel');
+
+        moreToggle.addEventListener('click', function() {
+            morePanel.classList.toggle('show');
+        });
 
         if (localStorage.getItem('sidebar-collapsed') === 'true') {
             document.body.classList.add('sidebar-collapsed');

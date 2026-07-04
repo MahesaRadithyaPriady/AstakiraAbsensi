@@ -51,6 +51,12 @@
                     <i data-lucide="file-text" class="h-4 w-4 shrink-0"></i>
                     <span class="sidebar-label">Laporan</span>
                 </a>
+                <a href="{{ route('pkl.sop.index') }}"
+                   class="sidebar-nav-item flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors
+                   {{ request()->routeIs('pkl.sop*') ? 'bg-brand-blue text-white' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
+                    <i data-lucide="clipboard-list" class="h-4 w-4 shrink-0"></i>
+                    <span class="sidebar-label">SOP</span>
+                </a>
                 <a href="{{ route('settings.index') }}"
                    class="sidebar-nav-item flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors
                    {{ request()->routeIs('settings.*') ? 'bg-brand-blue text-white' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
@@ -124,6 +130,33 @@
 
     {{-- Bottom nav for mobile --}}
     <nav class="fixed bottom-0 left-0 right-0 z-40 card-surface shadow-lg lg:hidden">
+        {{-- Expandable "Lainnya" panel --}}
+        <div id="more-panel" class="border-b border-slate-200 px-4">
+            <div class="grid grid-cols-3 gap-2">
+                <a href="{{ route('pkl.sop.index') }}"
+                   class="flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 text-xs font-medium transition-colors
+                   {{ request()->routeIs('pkl.sop*') ? 'bg-primary-50 text-brand-blue' : 'text-slate-600 hover:bg-slate-100' }}">
+                    <i data-lucide="clipboard-list" class="h-5 w-5"></i>
+                    <span>SOP</span>
+                </a>
+                <a href="{{ route('settings.index') }}"
+                   class="flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 text-xs font-medium transition-colors
+                   {{ request()->routeIs('settings.*') ? 'bg-primary-50 text-brand-blue' : 'text-slate-600 hover:bg-slate-100' }}">
+                    <i data-lucide="settings" class="h-5 w-5"></i>
+                    <span>Pengaturan</span>
+                </a>
+                <form action="{{ route('user.logout') }}" method="POST" class="flex flex-col items-center">
+                    @csrf
+                    <button type="submit"
+                            class="flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 text-xs font-medium text-slate-600 transition-colors hover:bg-red-50 hover:text-red-600 w-full">
+                        <i data-lucide="log-out" class="h-5 w-5"></i>
+                        <span>Keluar</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        {{-- Main 4 tabs --}}
         <div class="flex items-center justify-around px-2 py-2">
             <a href="{{ route('pkl.dashboard') }}"
                class="flex flex-1 flex-col items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium transition-colors
@@ -143,20 +176,12 @@
                 <i data-lucide="file-text" class="h-5 w-5"></i>
                 <span>Laporan</span>
             </a>
-            <a href="{{ route('settings.index') }}"
-               class="flex flex-1 flex-col items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium transition-colors
-               {{ request()->routeIs('settings.*') ? 'text-brand-blue' : 'text-slate-500' }}">
-                <i data-lucide="settings" class="h-5 w-5"></i>
-                <span>Pengaturan</span>
-            </a>
-            <form action="{{ route('user.logout') }}" method="POST" class="flex flex-1 justify-center">
-                @csrf
-                <button type="submit"
-                        class="flex flex-col items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium text-slate-500 transition-colors hover:text-red-600">
-                    <i data-lucide="log-out" class="h-5 w-5"></i>
-                    <span>Keluar</span>
-                </button>
-            </form>
+            <button type="button" id="more-toggle"
+                    class="flex flex-1 flex-col items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium transition-colors
+                    {{ request()->routeIs('pkl.sop*') || request()->routeIs('settings.*') ? 'text-brand-blue' : 'text-slate-500' }}">
+                <i data-lucide="menu" class="h-5 w-5"></i>
+                <span>Lainnya</span>
+            </button>
         </div>
     </nav>
 
@@ -166,6 +191,14 @@
         var sidebarToggle = document.getElementById('sidebar-toggle');
         var sidebarExpandIcon = document.getElementById('sidebar-expand-icon');
         var sidebarCollapseIcon = document.getElementById('sidebar-collapse-icon');
+
+        // Bottom nav "Lainnya" panel toggle
+        var moreToggle = document.getElementById('more-toggle');
+        var morePanel = document.getElementById('more-panel');
+
+        moreToggle.addEventListener('click', function() {
+            morePanel.classList.toggle('show');
+        });
 
         if (localStorage.getItem('sidebar-collapsed') === 'true') {
             document.body.classList.add('sidebar-collapsed');

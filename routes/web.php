@@ -4,10 +4,12 @@ use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\AdminAbsensiController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminLaporanController;
+use App\Http\Controllers\AdminSopController;
 use App\Http\Controllers\AdministratorLoginController;
 use App\Http\Controllers\PembimbingController;
 use App\Http\Controllers\PklDashboardController;
 use App\Http\Controllers\PklLaporanController;
+use App\Http\Controllers\PklSopController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScanMachineController;
 use App\Http\Controllers\UserLoginController;
@@ -61,6 +63,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/laporan/{laporan}', [AdminLaporanController::class, 'show'])->name('admin.laporan.show');
     Route::post('/admin/laporan/{laporan}/validate', [AdminLaporanController::class, 'validate'])->name('admin.laporan.validate');
     Route::delete('/admin/laporan/{laporan}', [AdminLaporanController::class, 'destroy'])->name('admin.laporan.destroy');
+
+    Route::get('/admin/sop', [AdminSopController::class, 'index'])->name('admin.sop.index');
+    Route::get('/admin/sop/create', [AdminSopController::class, 'create'])->name('admin.sop.create');
+    Route::post('/admin/sop', [AdminSopController::class, 'store'])->name('admin.sop.store');
+    Route::get('/admin/sop/{sop}/edit', [AdminSopController::class, 'edit'])->name('admin.sop.edit');
+    Route::put('/admin/sop/{sop}', [AdminSopController::class, 'update'])->name('admin.sop.update');
+    Route::delete('/admin/sop/{sop}', [AdminSopController::class, 'destroy'])->name('admin.sop.destroy');
 });
 
 Route::middleware(['auth', 'pkl'])->group(function () {
@@ -72,6 +81,9 @@ Route::middleware(['auth', 'pkl'])->group(function () {
 
     Route::get('/pkl/laporan', [PklLaporanController::class, 'index'])->name('pkl.laporan');
     Route::post('/pkl/laporan', [PklLaporanController::class, 'store'])->name('pkl.laporan.store');
+
+    Route::get('/pkl/sop', [PklSopController::class, 'index'])->name('pkl.sop.index');
+    Route::get('/pkl/sop/{sop}', [PklSopController::class, 'show'])->name('pkl.sop.show');
 });
 
 Route::get('/pkl/absensi/scan/{token}', [AbsensiController::class, 'scan'])->name('pkl.absensi.scan');

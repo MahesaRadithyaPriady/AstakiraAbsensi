@@ -305,3 +305,22 @@ body.sidebar-collapsed .sidebar-logo {
   padding-left: 0.5rem !important;
   padding-right: 0.5rem !important;
 }
+
+/* ═══════════════════════════════════════════
+   BOTTOM NAV — MORE PANEL ANIMATION
+ ═══════════════════════════════════════════ */
+#more-panel {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: max-height 0.25s ease, opacity 0.2s ease, padding 0.25s ease;
+}
+
+#more-panel.show {
+  max-height: 200px;
+  opacity: 1;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
