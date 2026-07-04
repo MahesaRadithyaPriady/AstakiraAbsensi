@@ -22,7 +22,9 @@ class PklLaporanController extends Controller
             ->orderBy('tanggal', 'desc')
             ->paginate(10);
 
-        return view('pkl.laporan', compact('laporanToday', 'riwayat'));
+        $pklActive = $user->isPklActive();
+
+        return view('pkl.laporan', compact('laporanToday', 'riwayat', 'pklActive'));
     }
 
     public function store(Request $request)
@@ -40,6 +42,10 @@ class PklLaporanController extends Controller
 
         $user = Auth::user();
         $today = now()->toDateString();
+
+        if (!$user->isPklActive()) {
+            return back()->with('error', 'Masa PKL Anda belum dimulai atau sudah berakhir. Laporan tidak dapat dikirim di luar masa PKL.');
+        }
 
         $existing = Laporan::where('user_id', $user->id)
             ->where('tanggal', $today)

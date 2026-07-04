@@ -49,7 +49,20 @@
         </div>
 
         <div class="p-6">
-            @if ($laporanToday)
+            @if (!$pklActive)
+                <div class="flex flex-col items-center justify-center py-6 text-center">
+                    <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-slate-100">
+                        <i data-lucide="calendar-x" class="h-8 w-8 text-slate-400"></i>
+                    </div>
+                    <h3 class="text-base font-semibold text-navy">Di Luar Masa PKL</h3>
+                    <p class="mt-1 text-sm text-slate-400">Laporan hanya dapat dikirim selama masa PKL berlangsung.</p>
+                    @if (auth()->user()->tanggal_mulai_pkl && auth()->user()->tanggal_selesai_pkl)
+                        <p class="mt-2 text-xs text-slate-400">
+                            Masa PKL: {{ auth()->user()->tanggal_mulai_pkl->format('d M Y') }} s/d {{ auth()->user()->tanggal_selesai_pkl->format('d M Y') }}
+                        </p>
+                    @endif
+                </div>
+            @elseif ($laporanToday)
                 {{-- Already submitted --}}
                 <div class="flex flex-col items-center justify-center py-6 text-center">
                     @if ($laporanToday->status === 'pending')

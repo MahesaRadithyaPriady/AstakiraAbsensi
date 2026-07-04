@@ -35,6 +35,8 @@ class UserManagementController extends Controller
             'nisp' => ['nullable', 'string', 'max:255'],
             'foto_profile' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'role' => ['required', 'in:admin,karyawan,pkl,pembimbing'],
+            'tanggal_mulai_pkl' => ['nullable', 'date', 'required_if:role,pkl'],
+            'tanggal_selesai_pkl' => ['nullable', 'date', 'required_if:role,pkl', 'after_or_equal:tanggal_mulai_pkl'],
         ];
 
         $validated = $request->validate($rules);
@@ -43,6 +45,8 @@ class UserManagementController extends Controller
             $validated['nisp'] = $this->generateNisp();
         } else {
             $validated['nisp'] = null;
+            $validated['tanggal_mulai_pkl'] = null;
+            $validated['tanggal_selesai_pkl'] = null;
         }
 
         if ($request->hasFile('foto_profile')) {
@@ -73,6 +77,8 @@ class UserManagementController extends Controller
             'nisp' => ['nullable', 'string', 'max:255'],
             'foto_profile' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'role' => ['required', 'in:admin,karyawan,pkl,pembimbing'],
+            'tanggal_mulai_pkl' => ['nullable', 'date', 'required_if:role,pkl'],
+            'tanggal_selesai_pkl' => ['nullable', 'date', 'required_if:role,pkl', 'after_or_equal:tanggal_mulai_pkl'],
         ];
 
         $validated = $request->validate($rules);
@@ -85,6 +91,8 @@ class UserManagementController extends Controller
             }
         } else {
             $validated['nisp'] = null;
+            $validated['tanggal_mulai_pkl'] = null;
+            $validated['tanggal_selesai_pkl'] = null;
         }
 
         if ($request->hasFile('foto_profile')) {

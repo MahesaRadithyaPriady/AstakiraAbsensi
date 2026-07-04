@@ -91,6 +91,20 @@
                 @error('nisp') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
             </div>
 
+            {{-- Masa PKL --}}
+            <div id="pkl-period-field" class="hidden">
+                <label for="tanggal_mulai_pkl" class="mb-1.5 block text-sm font-medium text-slate-700">Mulai PKL</label>
+                <input type="date" id="tanggal_mulai_pkl" name="tanggal_mulai_pkl"
+                       class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 transition-all focus:border-brand-blue focus:bg-white focus:ring-2 focus:ring-primary-100 focus:outline-none"
+                       value="{{ old('tanggal_mulai_pkl', $user->tanggal_mulai_pkl?->format('Y-m-d')) }}">
+            </div>
+            <div id="pkl-period-field2" class="hidden">
+                <label for="tanggal_selesai_pkl" class="mb-1.5 block text-sm font-medium text-slate-700">Selesai PKL</label>
+                <input type="date" id="tanggal_selesai_pkl" name="tanggal_selesai_pkl"
+                       class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 transition-all focus:border-brand-blue focus:bg-white focus:ring-2 focus:ring-primary-100 focus:outline-none"
+                       value="{{ old('tanggal_selesai_pkl', $user->tanggal_selesai_pkl?->format('Y-m-d')) }}">
+            </div>
+
             {{-- Alamat --}}
             <div class="sm:col-span-2">
                 <label for="alamat" class="mb-1.5 block text-sm font-medium text-slate-700">Alamat</label>
@@ -149,6 +163,8 @@
     const roleSelect = document.getElementById('role');
     const nispInput = document.getElementById('nisp');
     const nispHint = document.getElementById('nisp-hint');
+    const pklPeriodField = document.getElementById('pkl-period-field');
+    const pklPeriodField2 = document.getElementById('pkl-period-field2');
 
     function toggleNisp() {
         const isPkl = roleSelect.value === 'pkl';
@@ -167,6 +183,8 @@
             }
             nispHint.classList.remove('text-slate-400');
             nispHint.classList.add('text-amber-600');
+            pklPeriodField.classList.remove('hidden');
+            pklPeriodField2.classList.remove('hidden');
         } else {
             nispInput.disabled = true;
             nispInput.readOnly = false;
@@ -176,6 +194,8 @@
             nispHint.textContent = 'Hanya untuk role PKL, auto-generate.';
             nispHint.classList.add('text-slate-400');
             nispHint.classList.remove('text-amber-600');
+            pklPeriodField.classList.add('hidden');
+            pklPeriodField2.classList.add('hidden');
         }
     }
 
