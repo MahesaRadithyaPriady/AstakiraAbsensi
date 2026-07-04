@@ -128,11 +128,13 @@
                         <p class="mt-0.5 text-xs leading-relaxed text-slate-500">
                             "Semoga Allah memberikan kesembuhan bagi yang sakit dan memudahkan urusan bagi yang mengajukan izin. Semoga kesehatan dan keberkahan selalu menyertai Anda dalam menjalani PKL."
                         </p>
+                        <div class="flex justify-end">
+                            <button id="doa-love-btn" type="button"
+                                class="shrink-0 text-slate-300 transition-all hover:scale-110">
+                                <i data-lucide="heart" class="h-4 w-4"></i>
+                            </button>
+                        </div>
                     </div>
-                    <button id="doa-love-btn" type="button"
-                            class="shrink-0 text-rose-500 transition-all hover:scale-110">
-                        <i data-lucide="heart" class="h-4 w-4" fill="currentColor"></i>
-                    </button>
                 </div>
             </div>
 
@@ -522,9 +524,21 @@
 
     // --- Doa Love Button ---
     const doaLoveBtn = document.getElementById('doa-love-btn');
+    let doaLoved = false;
 
     if (doaLoveBtn) {
         doaLoveBtn.addEventListener('click', function() {
+            doaLoved = !doaLoved;
+            const icon = this.querySelector('i');
+            if (doaLoved) {
+                this.classList.remove('text-slate-300');
+                this.classList.add('text-rose-500');
+                icon.setAttribute('fill', 'currentColor');
+            } else {
+                this.classList.add('text-slate-300');
+                this.classList.remove('text-rose-500');
+                icon.removeAttribute('fill');
+            }
             this.classList.add('scale-125');
             setTimeout(() => this.classList.remove('scale-125'), 200);
         });
