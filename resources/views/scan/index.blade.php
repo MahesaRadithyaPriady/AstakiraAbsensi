@@ -32,11 +32,12 @@
         {{-- Camera feed + scan overlay --}}
         <div class="relative overflow-hidden rounded-2xl border border-deep-blue bg-black">
             <div class="relative aspect-[4/3] w-full">
-                <img id="camera-feed" src="" alt="Camera" class="absolute inset-0 h-full w-full object-cover">
+                <video id="camera-video" autoplay playsinline muted class="absolute inset-0 h-full w-full object-cover hidden"></video>
+                <img id="camera-feed" src="" alt="Camera" class="absolute inset-0 h-full w-full object-cover hidden">
                 <div id="camera-placeholder" class="absolute inset-0 flex flex-col items-center justify-center">
                     <div class="mb-4 h-12 w-12 animate-spin rounded-full border-2 border-slate-600 border-t-brand-blue"></div>
                     <p class="text-sm text-slate-400">Menunggu kamera...</p>
-                    <p class="mt-1 text-xs text-slate-500">http://{{ $cameraIp }}:{{ $cameraPort }}/</p>
+                    <p class="mt-1 text-xs text-slate-500" id="camera-source-info">Mencoba kamera perangkat...</p>
                 </div>
 
                 {{-- Scan overlay --}}
@@ -81,8 +82,10 @@
     </style>
 
     <script>
+        const cameraVideo = document.getElementById('camera-video');
         const cameraFeed = document.getElementById('camera-feed');
         const cameraPlaceholder = document.getElementById('camera-placeholder');
+        const cameraSourceInfo = document.getElementById('camera-source-info');
         const camStatus = document.getElementById('cam-status');
         const camStatusText = document.getElementById('cam-status-text');
         const scanCanvas = document.getElementById('scan-canvas');
@@ -92,6 +95,8 @@
         const scanHistory = [];
         let lastScanTime = 0;
         let snapshotTimer = null;
+        let localStream = null;
+        let usingLocalCamera = false;
         const SCAN_COOLDOWN = 3000;
         const POLL_INTERVAL = 800;
 
@@ -111,14 +116,81 @@
             camStatusText.textContent = text;
         }
 
-        // --- Video display: direct MJPEG stream from IP camera ---
-        function startVideoStream() {
+        // --- Try local device camera first, fallback to IP camera ---
+        async function initCamera() {
+            setCamStatus('connecting', 'Menghubungkan kamera...');
+            cameraSourceInfo.textContent = 'Mencoba kamera perangkat...';
+
+            try {
+                localStream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } },
+                    audio: false,
+                });
+
+                cameraVideo.srcObject = localStream;
+                cameraVideo.classList.remove('hidden');
+                cameraFeed.classList.add('hidden');
+                cameraPlaceholder.classList.add('hidden');
+                usingLocalCamera = true;
+                setCamStatus('connected', 'Kamera perangkat aktif');
+
+                // Start QR scanning from video frames
+                startVideoScanLoop();
+                return;
+            } catch (e) {
+                console.warn('Device camera unavailable, falling back to IP camera:', e.message);
+            }
+
+            // Fallback to IP camera
+            cameraSourceInfo.textContent = 'Menggunakan IP camera: ' + cameraStreamUrl;
+            cameraVideo.classList.add('hidden');
+            cameraFeed.classList.remove('hidden');
+            usingLocalCamera = false;
+            startIpCameraStream();
+        }
+
+        // --- Local camera: scan QR from video frames ---
+        function startVideoScanLoop() {
+            if (snapshotTimer) clearInterval(snapshotTimer);
+            snapshotTimer = setInterval(scanVideoFrame, POLL_INTERVAL);
+        }
+
+        function scanVideoFrame() {
+            if (!usingLocalCamera || !cameraVideo.videoWidth) return;
+
+            const now = Date.now();
+            if (now - lastScanTime < SCAN_COOLDOWN) return;
+
+            try {
+                scanCanvas.width = cameraVideo.videoWidth;
+                scanCanvas.height = cameraVideo.videoHeight;
+                scanCtx.drawImage(cameraVideo, 0, 0, scanCanvas.width, scanCanvas.height);
+
+                const imageData = scanCtx.getImageData(0, 0, scanCanvas.width, scanCanvas.height);
+                const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                    inversionAttempts: 'attemptBoth',
+                });
+
+                if (code && code.data) {
+                    lastScanTime = now;
+                    processQrData(code.data);
+                }
+            } catch (e) {
+                // silently continue
+            }
+        }
+
+        // --- IP camera: MJPEG stream + snapshot polling ---
+        function startIpCameraStream() {
             cameraFeed.src = cameraStreamUrl + '?t=' + Date.now();
+            if (snapshotTimer) clearInterval(snapshotTimer);
+            fetchSnapshotForDecode();
+            snapshotTimer = setInterval(fetchSnapshotForDecode, POLL_INTERVAL);
         }
 
         cameraFeed.onload = () => {
             cameraPlaceholder.classList.add('hidden');
-            setCamStatus('connected', 'Kamera terhubung');
+            setCamStatus('connected', 'IP camera terhubung');
         };
 
         cameraFeed.onerror = () => {
@@ -130,13 +202,14 @@
                     </div>
                     <p class="text-sm text-red-400 font-medium">Gagal menghubungkan kamera</p>
                     <p class="mt-1 text-xs text-slate-500">Pastikan IP camera aktif di ${cameraStreamUrl}</p>
-                    <button onclick="startVideoStream()" class="mt-3 rounded-lg bg-deep-blue px-4 py-2 text-sm font-medium text-slate-300 hover:bg-brand-blue">Coba lagi</button>
+                    <button onclick="initCamera()" class="mt-3 rounded-lg bg-deep-blue px-4 py-2 text-sm font-medium text-slate-300 hover:bg-brand-blue">Coba lagi</button>
                 </div>`;
             setCamStatus('error', 'Kamera terputus');
         };
 
-        // --- QR decode: fetch snapshot via Laravel proxy (no CORS issue) ---
         async function fetchSnapshotForDecode() {
+            if (usingLocalCamera) return;
+
             try {
                 const res = await fetch(snapshotUrl + '?t=' + Date.now(), {
                     cache: 'no-store',
@@ -182,15 +255,6 @@
             } catch (e) {
                 // silently continue
             }
-        }
-
-        function startPolling() {
-            if (snapshotTimer) clearInterval(snapshotTimer);
-            // Start video stream for display
-            startVideoStream();
-            // Start snapshot polling for QR decode
-            fetchSnapshotForDecode();
-            snapshotTimer = setInterval(fetchSnapshotForDecode, POLL_INTERVAL);
         }
 
         // --- Sound feedback ---
@@ -303,7 +367,7 @@
             if (window.lucide) lucide.createIcons();
         }
 
-        startPolling();
+        initCamera();
     </script>
 </body>
 </html>
