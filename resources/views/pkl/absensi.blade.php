@@ -143,6 +143,16 @@
                         </span>
                     </div>
                 </div>
+            @elseif ($absensiToday && $absensiToday->jam_masuk)
+                <div class="p-6">
+                    <div class="flex flex-col items-center justify-center py-8 text-center">
+                        <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-slate-100">
+                            <i data-lucide="ban" class="h-8 w-8 text-slate-400"></i>
+                        </div>
+                        <h3 class="text-base font-semibold text-slate-700">Tidak Dapat Mengajukan Izin/Sakit</h3>
+                        <p class="mt-1 text-sm text-slate-400">Anda sudah melakukan absensi hari ini. Pengajuan izin/sakit tidak tersedia.</p>
+                    </div>
+                </div>
             @else
                 <form action="{{ route('pkl.absensi.izin') }}" method="POST" enctype="multipart/form-data" class="p-6">
                     @csrf

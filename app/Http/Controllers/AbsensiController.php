@@ -182,6 +182,19 @@ class AbsensiController extends Controller
             'surat' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf,webp', 'max:2048'],
         ]);
 
+        $tanggalMulai = $validated['tanggal'];
+        $tanggalSampai = $validated['sampai_tanggal'] ?? $validated['tanggal'];
+
+        $sudahAbsen = Absensi::where('user_id', Auth::id())
+            ->whereNotNull('jam_masuk')
+            ->whereBetween('tanggal', [$tanggalMulai, $tanggalSampai])
+            ->exists();
+
+        if ($sudahAbsen) {
+            return back()->with('error', 'Anda sudah melakukan absensi pada tanggal tersebut. Tidak dapat mengajukan izin/sakit.')
+                ->withInput();
+        }
+
         $path = $request->file('surat')->store('surat-izin-sakit', 'public');
 
         IzinSakit::create([

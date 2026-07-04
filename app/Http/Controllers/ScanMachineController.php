@@ -8,7 +8,7 @@ use Illuminate\View\View;
 
 class ScanMachineController extends Controller
 {
-    private string $cameraIp = '192.168.1.3';
+    private string $cameraIp = '192.168.1.7';
     private string $cameraPort = '8080';
 
     public function index(): View
