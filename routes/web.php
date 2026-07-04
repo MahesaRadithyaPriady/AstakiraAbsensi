@@ -10,6 +10,7 @@ use App\Http\Controllers\PembimbingController;
 use App\Http\Controllers\PembimbingDashboardController;
 use App\Http\Controllers\PembimbingAbsensiController;
 use App\Http\Controllers\PembimbingLaporanController;
+use App\Http\Controllers\PembimbingSopController;
 use App\Http\Controllers\PklDashboardController;
 use App\Http\Controllers\PklLaporanController;
 use App\Http\Controllers\PklSopController;
@@ -96,4 +97,7 @@ Route::middleware(['auth', 'pembimbing'])->group(function () {
     Route::get('/pembimbing/absensi', [PembimbingAbsensiController::class, 'index'])->name('pembimbing.absensi.index');
     Route::get('/pembimbing/laporan', [PembimbingLaporanController::class, 'index'])->name('pembimbing.laporan.index');
     Route::get('/pembimbing/laporan/{laporan}', [PembimbingLaporanController::class, 'show'])->name('pembimbing.laporan.show');
+
+    Route::get('/pembimbing/sop', [PembimbingSopController::class, 'index'])->name('pembimbing.sop.index');
+    Route::get('/pembimbing/sop/{sop}', [PembimbingSopController::class, 'show'])->name('pembimbing.sop.show');
 });

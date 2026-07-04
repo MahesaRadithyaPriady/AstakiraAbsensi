@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Absensi;
 use App\Models\IzinSakit;
 use App\Models\Laporan;
+use App\Models\Sop;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +27,7 @@ class PembimbingDashboardController extends Controller
             'izin_sakit_hari_ini' => 0,
             'belum_absen_hari_ini' => 0,
             'laporan_pending' => 0,
+            'total_sop' => Sop::active()->count(),
         ];
 
         if (!empty($anakPklIds)) {

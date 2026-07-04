@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" type="image/jpeg" href="{{ asset('astakira.jpg') }}">
 
     <title>@yield('title', 'Dashboard') - {{ config('app.name') }}</title>
 
@@ -50,6 +51,12 @@
                    {{ request()->routeIs('pembimbing.laporan.*') ? 'bg-brand-blue text-white' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
                     <i data-lucide="file-text" class="h-4 w-4 shrink-0"></i>
                     <span class="sidebar-label">Laporan</span>
+                </a>
+                <a href="{{ route('pembimbing.sop.index') }}"
+                   class="sidebar-nav-item flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors
+                   {{ request()->routeIs('pembimbing.sop.*') ? 'bg-brand-blue text-white' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
+                    <i data-lucide="clipboard-list" class="h-4 w-4 shrink-0"></i>
+                    <span class="sidebar-label">SOP PKL</span>
                 </a>
                 <p class="px-3 pt-4 pb-2 text-xs font-semibold uppercase tracking-wider text-slate-500 sidebar-label">Sistem</p>
                 <a href="{{ route('settings.index') }}"
@@ -131,12 +138,18 @@
     <nav class="fixed bottom-0 left-0 right-0 z-40 card-surface shadow-lg lg:hidden">
         {{-- Expandable "Lainnya" panel --}}
         <div id="more-panel" class="border-b border-slate-200 px-4">
-            <div class="grid grid-cols-3 gap-2">
+            <div class="grid grid-cols-4 gap-2">
                 <a href="{{ route('pembimbing.laporan.index') }}"
                    class="flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 text-xs font-medium transition-colors
                    {{ request()->routeIs('pembimbing.laporan.*') ? 'bg-primary-50 text-brand-blue' : 'text-slate-600 hover:bg-slate-100' }}">
                     <i data-lucide="file-text" class="h-5 w-5"></i>
                     <span>Laporan</span>
+                </a>
+                <a href="{{ route('pembimbing.sop.index') }}"
+                   class="flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 text-xs font-medium transition-colors
+                   {{ request()->routeIs('pembimbing.sop.*') ? 'bg-primary-50 text-brand-blue' : 'text-slate-600 hover:bg-slate-100' }}">
+                    <i data-lucide="clipboard-list" class="h-5 w-5"></i>
+                    <span>SOP</span>
                 </a>
                 <a href="{{ route('settings.index') }}"
                    class="flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 text-xs font-medium transition-colors

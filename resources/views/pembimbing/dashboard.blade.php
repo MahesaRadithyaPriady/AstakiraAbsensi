@@ -17,7 +17,7 @@
     </div>
 
     {{-- Stats cards --}}
-    <div class="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+    <div class="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-5">
         <div class="rounded-2xl border border-surface card-surface p-5 shadow-sm">
             <div class="flex items-center justify-between">
                 <div>
@@ -62,6 +62,17 @@
                 </div>
             </div>
         </div>
+        <div class="rounded-2xl border border-surface card-surface p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-medium text-secondary-color">Total SOP</p>
+                    <p class="mt-1 text-2xl font-bold text-primary-color">{{ $stats['total_sop'] }}</p>
+                </div>
+                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50">
+                    <i data-lucide="clipboard-list" class="h-5 w-5 text-indigo-600"></i>
+                </div>
+            </div>
+        </div>
     </div>
 
     {{-- Chart Section --}}
@@ -85,6 +96,37 @@
         <div class="relative h-64 w-full">
             <canvas id="attendanceChart"></canvas>
         </div>
+    </div>
+
+    {{-- Quick actions --}}
+    <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <a href="{{ route('pembimbing.absensi.index') }}" class="group flex items-center gap-3 rounded-xl border border-surface card-surface p-4 shadow-sm transition-all hover:border-primary-300 hover:shadow-md">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 transition-colors group-hover:bg-emerald-100">
+                <i data-lucide="calendar-check" class="h-5 w-5 text-emerald-600"></i>
+            </div>
+            <div>
+                <p class="text-sm font-medium text-primary-color">Lihat Absensi</p>
+                <p class="text-xs text-secondary-color">Monitor kehadiran</p>
+            </div>
+        </a>
+        <a href="{{ route('pembimbing.laporan.index') }}" class="group flex items-center gap-3 rounded-xl border border-surface card-surface p-4 shadow-sm transition-all hover:border-primary-300 hover:shadow-md">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 transition-colors group-hover:bg-amber-100">
+                <i data-lucide="file-text" class="h-5 w-5 text-amber-600"></i>
+            </div>
+            <div>
+                <p class="text-sm font-medium text-primary-color">Laporan</p>
+                <p class="text-xs text-secondary-color">Pantau laporan PKL</p>
+            </div>
+        </a>
+        <a href="{{ route('pembimbing.sop.index') }}" class="group flex items-center gap-3 rounded-xl border border-surface card-surface p-4 shadow-sm transition-all hover:border-primary-300 hover:shadow-md">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 transition-colors group-hover:bg-indigo-100">
+                <i data-lucide="clipboard-list" class="h-5 w-5 text-indigo-600"></i>
+            </div>
+            <div>
+                <p class="text-sm font-medium text-primary-color">SOP PKL</p>
+                <p class="text-xs text-secondary-color">Lihat prosedur</p>
+            </div>
+        </a>
     </div>
 
     {{-- Status anak PKL hari ini --}}
