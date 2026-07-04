@@ -128,11 +128,11 @@
                         <p class="mt-0.5 text-xs leading-relaxed text-slate-500">
                             "Semoga Allah memberikan kesembuhan bagi yang sakit dan memudahkan urusan bagi yang mengajukan izin. Semoga kesehatan dan keberkahan selalu menyertai Anda dalam menjalani PKL."
                         </p>
-                        <button id="doa-love-btn" type="button"
-                                class="mt-2 inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-xs font-medium text-rose-500 transition-all hover:scale-110">
-                            <i data-lucide="heart" class="h-4 w-4" fill="currentColor"></i>
-                        </button>
                     </div>
+                    <button id="doa-love-btn" type="button"
+                            class="shrink-0 text-rose-500 transition-all hover:scale-110">
+                        <i data-lucide="heart" class="h-4 w-4" fill="currentColor"></i>
+                    </button>
                 </div>
             </div>
 
