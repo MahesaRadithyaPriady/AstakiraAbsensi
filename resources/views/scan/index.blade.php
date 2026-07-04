@@ -213,9 +213,11 @@
         }
 
         function beepSuccess() {
-            // Two short high beeps
-            beep(880, 0.15, 'sine');
-            setTimeout(() => beep(1175, 0.2, 'sine'), 160);
+            const audio = new Audio('{{ asset("sounds/kerja-bagus.mp3") }}');
+            audio.play().catch(() => {
+                beep(880, 0.15, 'sine');
+                setTimeout(() => beep(1175, 0.2, 'sine'), 160);
+            });
         }
 
         function beepError() {
