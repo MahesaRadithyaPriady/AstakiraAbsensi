@@ -120,6 +120,18 @@
                 <i data-lucide="file-text" class="h-5 w-5 text-slate-400"></i>
             </div>
 
+            <div class="border-b border-slate-100 bg-primary-50/50 px-6 py-3">
+                <div class="flex items-start gap-2.5">
+                    <i data-lucide="heart-handshake" class="mt-0.5 h-4 w-4 shrink-0 text-brand-blue"></i>
+                    <div>
+                        <p class="text-xs font-medium text-navy">Doa untuk Anda</p>
+                        <p class="mt-0.5 text-xs leading-relaxed text-slate-500">
+                            "Semoga Allah memberikan kesembuhan bagi yang sakit dan memudahkan urusan bagi yang mengajukan izin. Semoga kesehatan dan keberkahan selalu menyertai Anda dalam menjalani PKL."
+                        </p>
+                    </div>
+                </div>
+            </div>
+
             @if ($izinSakitToday)
                 <div class="p-6">
                     <div class="flex flex-col items-center justify-center py-8 text-center">
