@@ -3,22 +3,29 @@
 @section('title', 'Dashboard Admin')
 
 @section('content')
-    {{-- Header --}}
-    <div class="mb-8">
-        <h1 class="text-2xl font-bold text-slate-800">Dashboard</h1>
-        <p class="mt-1 text-sm text-slate-500">Selamat datang kembali, {{ $user->nama }}!</p>
+    {{-- Welcome banner --}}
+    <div class="mb-6 overflow-hidden rounded-2xl bg-gradient-to-br from-navy via-deep-blue to-brand-blue p-6 text-white shadow-lg">
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="text-2xl font-bold">Selamat datang, {{ $user->nama }}!</h2>
+                <p class="mt-1 text-sm text-slate-300">Berikut ringkasan aktivitas sistem absensi hari ini.</p>
+            </div>
+            <div class="hidden h-16 w-16 items-center justify-center rounded-2xl bg-white/10 backdrop-blur sm:flex">
+                <i data-lucide="layout-dashboard" class="h-8 w-8 text-white"></i>
+            </div>
+        </div>
     </div>
 
     {{-- Stats cards --}}
-    <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+    <div class="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-5">
         <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs font-medium text-slate-500">Total Pengguna</p>
-                    <p class="mt-1 text-2xl font-bold text-slate-800">{{ $stats['total_users'] }}</p>
+                    <p class="mt-1 text-2xl font-bold text-navy">{{ $stats['total_users'] }}</p>
                 </div>
-                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50">
-                    <i data-lucide="users" class="h-5 w-5 text-blue-600"></i>
+                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50">
+                    <i data-lucide="users" class="h-5 w-5 text-brand-blue"></i>
                 </div>
             </div>
         </div>
@@ -26,7 +33,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs font-medium text-slate-500">Admin</p>
-                    <p class="mt-1 text-2xl font-bold text-slate-800">{{ $stats['total_admin'] }}</p>
+                    <p class="mt-1 text-2xl font-bold text-navy">{{ $stats['total_admin'] }}</p>
                 </div>
                 <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50">
                     <i data-lucide="shield-check" class="h-5 w-5 text-indigo-600"></i>
@@ -37,7 +44,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs font-medium text-slate-500">Karyawan</p>
-                    <p class="mt-1 text-2xl font-bold text-slate-800">{{ $stats['total_karyawan'] }}</p>
+                    <p class="mt-1 text-2xl font-bold text-navy">{{ $stats['total_karyawan'] }}</p>
                 </div>
                 <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50">
                     <i data-lucide="briefcase" class="h-5 w-5 text-emerald-600"></i>
@@ -48,7 +55,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs font-medium text-slate-500">PKL</p>
-                    <p class="mt-1 text-2xl font-bold text-slate-800">{{ $stats['total_pkl'] }}</p>
+                    <p class="mt-1 text-2xl font-bold text-navy">{{ $stats['total_pkl'] }}</p>
                 </div>
                 <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50">
                     <i data-lucide="graduation-cap" class="h-5 w-5 text-amber-600"></i>
@@ -59,7 +66,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs font-medium text-slate-500">Pembimbing</p>
-                    <p class="mt-1 text-2xl font-bold text-slate-800">{{ $stats['total_pembimbing'] }}</p>
+                    <p class="mt-1 text-2xl font-bold text-navy">{{ $stats['total_pembimbing'] }}</p>
                 </div>
                 <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-50">
                     <i data-lucide="user-check" class="h-5 w-5 text-purple-600"></i>
@@ -69,17 +76,17 @@
     </div>
 
     {{-- Quick actions --}}
-    <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <a href="{{ route('admin.users.create') }}" class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:border-blue-300 hover:shadow-md">
-            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 transition-colors group-hover:bg-blue-100">
-                <i data-lucide="user-plus" class="h-5 w-5 text-blue-600"></i>
+    <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <a href="{{ route('admin.users.create') }}" class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:border-primary-300 hover:shadow-md">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-50 transition-colors group-hover:bg-primary-100">
+                <i data-lucide="user-plus" class="h-5 w-5 text-brand-blue"></i>
             </div>
             <div>
                 <p class="text-sm font-medium text-slate-700">Tambah Pengguna</p>
                 <p class="text-xs text-slate-400">Daftarkan akun baru</p>
             </div>
         </a>
-        <a href="#" class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:border-blue-300 hover:shadow-md">
+        <a href="{{ route('admin.absensi.index') }}" class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:border-primary-300 hover:shadow-md">
             <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 transition-colors group-hover:bg-emerald-100">
                 <i data-lucide="calendar-check" class="h-5 w-5 text-emerald-600"></i>
             </div>
@@ -88,22 +95,22 @@
                 <p class="text-xs text-slate-400">Data kehadiran</p>
             </div>
         </a>
-        <a href="#" class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:border-blue-300 hover:shadow-md">
+        <a href="{{ route('admin.laporan.index') }}" class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:border-primary-300 hover:shadow-md">
             <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 transition-colors group-hover:bg-amber-100">
                 <i data-lucide="file-text" class="h-5 w-5 text-amber-600"></i>
             </div>
             <div>
                 <p class="text-sm font-medium text-slate-700">Laporan</p>
-                <p class="text-xs text-slate-400">Generate laporan</p>
+                <p class="text-xs text-slate-400">Validasi laporan PKL</p>
             </div>
         </a>
-        <a href="#" class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:border-blue-300 hover:shadow-md">
+        <a href="{{ route('admin.pembimbing.index') }}" class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:border-primary-300 hover:shadow-md">
             <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-50 transition-colors group-hover:bg-purple-100">
-                <i data-lucide="settings" class="h-5 w-5 text-purple-600"></i>
+                <i data-lucide="user-check" class="h-5 w-5 text-purple-600"></i>
             </div>
             <div>
-                <p class="text-sm font-medium text-slate-700">Pengaturan</p>
-                <p class="text-xs text-slate-400">Konfigurasi sistem</p>
+                <p class="text-sm font-medium text-slate-700">Pembimbing</p>
+                <p class="text-xs text-slate-400">Kelola pembimbing</p>
             </div>
         </a>
     </div>
@@ -111,8 +118,8 @@
     {{-- Recent users --}}
     <div class="rounded-2xl border border-slate-200 bg-white shadow-sm">
         <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
-            <h2 class="text-base font-semibold text-slate-800">Pengguna Terbaru</h2>
-            <a href="{{ route('admin.users.index') }}" class="text-sm font-medium text-blue-600 hover:text-blue-700">Lihat semua</a>
+            <h2 class="text-base font-semibold text-navy">Pengguna Terbaru</h2>
+            <a href="{{ route('admin.users.index') }}" class="text-sm font-medium text-brand-blue hover:text-deep-blue">Lihat semua</a>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full">

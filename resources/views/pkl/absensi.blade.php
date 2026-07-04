@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="mb-6">
-        <h1 class="text-2xl font-bold text-slate-800">Absensi</h1>
+        <h1 class="text-2xl font-bold text-navy">Absensi</h1>
         <p class="mt-1 text-sm text-slate-500">{{ now()->format('l, d F Y') }}</p>
     </div>
 
@@ -26,7 +26,7 @@
         {{-- QR Code Absensi --}}
         <div class="rounded-2xl border border-slate-200 bg-white shadow-sm">
             <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
-                <h2 class="text-base font-semibold text-slate-800">QR Code Absensi</h2>
+                <h2 class="text-base font-semibold text-navy">QR Code Absensi</h2>
                 <i data-lucide="qr-code" class="h-5 w-5 text-slate-400"></i>
             </div>
 
@@ -65,7 +65,7 @@
                         <div id="qr-container" class="mb-4 flex flex-col items-center">
                             <div id="qr-loading" class="flex h-64 w-64 items-center justify-center rounded-xl bg-slate-50">
                                 <div class="text-center">
-                                    <div class="mx-auto mb-3 h-8 w-8 animate-spin rounded-full border-2 border-slate-300 border-t-blue-600"></div>
+                                    <div class="mx-auto mb-3 h-8 w-8 animate-spin rounded-full border-2 border-slate-300 border-t-brand-blue"></div>
                                     <p class="text-sm text-slate-400">Memuat QR...</p>
                                 </div>
                             </div>
@@ -77,12 +77,12 @@
                         {{-- Timer --}}
                         <div id="qr-timer" class="hidden mb-4 flex items-center gap-2">
                             <i data-lucide="clock" class="h-4 w-4 text-slate-400"></i>
-                            <span class="text-sm font-medium text-slate-600">QR berlaku selama <span id="timer-text" class="font-bold text-blue-600">60</span> detik</span>
+                            <span class="text-sm font-medium text-slate-600">QR berlaku selama <span id="timer-text" class="font-bold text-brand-blue">60</span> detik</span>
                         </div>
 
                         {{-- Waiting for scan --}}
                         <div id="qr-waiting" class="hidden mb-4 flex items-center gap-2">
-                            <div class="h-3 w-3 animate-pulse rounded-full bg-blue-500"></div>
+                            <div class="h-3 w-3 animate-pulse rounded-full bg-brand-blue"></div>
                             <span class="text-sm font-medium text-slate-600">Menunggu scan dari mesin absensi...</span>
                         </div>
 
@@ -104,7 +104,7 @@
                         </div>
 
                         {{-- Retry button --}}
-                        <button id="qr-retry" class="hidden inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition-all hover:from-blue-700 hover:to-blue-800 active:scale-[0.98]">
+                        <button id="qr-retry" class="hidden inline-flex items-center gap-2 rounded-xl bg-brand-blue px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition-all hover:bg-deep-blue active:scale-[0.98]">
                             <i data-lucide="refresh-cw" class="h-4 w-4"></i>
                             Retry Absensi
                         </button>
@@ -116,7 +116,7 @@
         {{-- Form Izin/Sakit --}}
         <div class="rounded-2xl border border-slate-200 bg-white shadow-sm">
             <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
-                <h2 class="text-base font-semibold text-slate-800">Pengajuan Izin / Sakit</h2>
+                <h2 class="text-base font-semibold text-navy">Pengajuan Izin / Sakit</h2>
                 <i data-lucide="file-text" class="h-5 w-5 text-slate-400"></i>
             </div>
 
@@ -152,12 +152,12 @@
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-slate-700">Jenis <span class="text-red-500">*</span></label>
                             <div class="flex gap-3" id="jenis-group">
-                                <label class="jenis-label flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-600 transition-all hover:border-blue-400 hover:bg-blue-50/50">
+                                <label class="jenis-label flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-600 transition-all hover:border-primary-400 hover:bg-primary-50/50">
                                     <input type="radio" name="jenis" value="izin" class="sr-only" required>
                                     <i data-lucide="calendar-off" class="h-4 w-4"></i>
                                     Izin
                                 </label>
-                                <label class="jenis-label flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-600 transition-all hover:border-blue-400 hover:bg-blue-50/50">
+                                <label class="jenis-label flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-600 transition-all hover:border-primary-400 hover:bg-primary-50/50">
                                     <input type="radio" name="jenis" value="sakit" class="sr-only">
                                     <i data-lucide="heart-pulse" class="h-4 w-4"></i>
                                     Sakit
@@ -178,7 +178,7 @@
                         <div>
                             <label for="sampai_tanggal" class="mb-1.5 block text-sm font-medium text-slate-700">Sampai Tanggal <span class="text-slate-400 text-xs font-normal">(opsional)</span></label>
                             <input type="date" id="sampai_tanggal" name="sampai_tanggal" value="{{ old('sampai_tanggal') }}" min="{{ now()->format('Y-m-d') }}"
-                                   class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 transition-all focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100 focus:outline-none @error('sampai_tanggal') border-red-400 @enderror">
+                                   class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 transition-all focus:border-brand-blue focus:bg-white focus:ring-2 focus:ring-primary-100 focus:outline-none @error('sampai_tanggal') border-red-400 @enderror">
                             <p class="mt-1 text-xs text-slate-400">Kosongkan jika hanya untuk hari ini.</p>
                             @error('sampai_tanggal') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                         </div>
@@ -196,7 +196,7 @@
                         <div>
                             <label for="keterangan" class="mb-1.5 block text-sm font-medium text-slate-700">Keterangan <span class="text-red-500">*</span></label>
                             <textarea id="keterangan" name="keterangan" rows="3"
-                                      class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 placeholder-slate-400 transition-all focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100 focus:outline-none @error('keterangan') border-red-400 @enderror"
+                                      class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 placeholder-slate-400 transition-all focus:border-brand-blue focus:bg-white focus:ring-2 focus:ring-primary-100 focus:outline-none @error('keterangan') border-red-400 @enderror"
                                       placeholder="Alasan izin/sakit" required>{{ old('keterangan') }}</textarea>
                             @error('keterangan') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                         </div>
@@ -204,14 +204,14 @@
                         {{-- Surat --}}
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-slate-700">Surat / Bukti <span class="text-red-500">*</span></label>
-                            <div id="surat-drop-zone" class="relative flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 px-6 py-8 text-center transition-all hover:border-blue-400 hover:bg-blue-50/50">
+                            <div id="surat-drop-zone" class="relative flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 px-6 py-8 text-center transition-all hover:border-primary-400 hover:bg-primary-50/50">
                                 <input type="file" id="surat" name="surat" accept="image/*,.pdf"
                                        class="absolute inset-0 h-full w-full cursor-pointer opacity-0 @error('surat') border-red-400 @enderror" required>
                                 <div class="pointer-events-none text-center">
-                                    <div class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
-                                        <i data-lucide="upload-cloud" class="h-5 w-5 text-blue-600"></i>
+                                    <div class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary-100">
+                                        <i data-lucide="upload-cloud" class="h-5 w-5 text-brand-blue"></i>
                                     </div>
-                                    <p class="text-sm font-medium text-slate-600">Drag & drop atau <span class="text-blue-600">klik untuk pilih</span></p>
+                                    <p class="text-sm font-medium text-slate-600">Drag & drop atau <span class="text-brand-blue">klik untuk pilih</span></p>
                                     <p class="mt-1 text-xs text-slate-400">Format: JPG, PNG, PDF. Maks 2MB.</p>
                                 </div>
                             </div>
@@ -219,7 +219,7 @@
                         </div>
 
                         <button type="submit"
-                                class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition-all hover:from-blue-700 hover:to-blue-800 active:scale-[0.98]">
+                                class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition-all hover:bg-deep-blue active:scale-[0.98]">
                             <i data-lucide="send" class="h-4 w-4"></i>
                             Ajukan
                         </button>
@@ -234,7 +234,7 @@
         {{-- Riwayat Absensi --}}
         <div class="rounded-2xl border border-slate-200 bg-white shadow-sm">
             <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
-                <h2 class="text-base font-semibold text-slate-800">Riwayat Absensi</h2>
+                <h2 class="text-base font-semibold text-navy">Riwayat Absensi</h2>
                 <i data-lucide="history" class="h-5 w-5 text-slate-400"></i>
             </div>
             <div class="divide-y divide-slate-100">
@@ -260,7 +260,7 @@
         {{-- Riwayat Izin/Sakit --}}
         <div class="rounded-2xl border border-slate-200 bg-white shadow-sm">
             <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
-                <h2 class="text-base font-semibold text-slate-800">Riwayat Izin/Sakit</h2>
+                <h2 class="text-base font-semibold text-navy">Riwayat Izin/Sakit</h2>
                 <i data-lucide="file-text" class="h-5 w-5 text-slate-400"></i>
             </div>
             <div class="divide-y divide-slate-100">
@@ -423,10 +423,10 @@
         jenisLabels.forEach(label => {
             const radio = label.querySelector('input[type="radio"]');
             if (radio.checked) {
-                label.classList.add('border-blue-500', 'bg-blue-50', 'text-blue-700');
+                label.classList.add('border-brand-blue', 'bg-primary-50', 'text-brand-blue');
                 label.classList.remove('border-slate-200', 'text-slate-600');
             } else {
-                label.classList.remove('border-blue-500', 'bg-blue-50', 'text-blue-700');
+                label.classList.remove('border-brand-blue', 'bg-primary-50', 'text-brand-blue');
                 label.classList.add('border-slate-200', 'text-slate-600');
             }
         });

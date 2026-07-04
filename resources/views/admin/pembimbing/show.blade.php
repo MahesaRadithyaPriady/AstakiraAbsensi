@@ -5,7 +5,7 @@
 @section('content')
     <div class="mb-6">
         <a href="{{ route('admin.pembimbing.index') }}"
-           class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 transition-colors hover:text-blue-600">
+           class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 transition-colors hover:text-brand-blue">
             <i data-lucide="arrow-left" class="h-4 w-4"></i>
             Kembali
         </a>
@@ -23,7 +23,7 @@
             @endif
         </div>
         <div>
-            <h1 class="text-2xl font-bold text-slate-800">{{ $pembimbing->nama }}</h1>
+            <h1 class="text-2xl font-bold text-navy">{{ $pembimbing->nama }}</h1>
             <p class="text-sm text-slate-500">{{ $pembimbing->email }}</p>
         </div>
         <span class="ml-auto rounded-full bg-purple-100 px-3 py-1 text-sm font-medium text-purple-700">
@@ -42,7 +42,7 @@
         {{-- Assigned PKL --}}
         <div class="rounded-2xl border border-slate-200 bg-white shadow-sm">
             <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
-                <h2 class="text-base font-semibold text-slate-800">Anak PKL Saat Ini</h2>
+                <h2 class="text-base font-semibold text-navy">Anak PKL Saat Ini</h2>
                 <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">{{ $pembimbing->anakPkl->count() }}</span>
             </div>
             <div class="divide-y divide-slate-100">
@@ -83,7 +83,7 @@
         {{-- Available PKL to assign --}}
         <div class="rounded-2xl border border-slate-200 bg-white shadow-sm">
             <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
-                <h2 class="text-base font-semibold text-slate-800">Tambah Anak PKL</h2>
+                <h2 class="text-base font-semibold text-navy">Tambah Anak PKL</h2>
                 <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">{{ $availablePkls->count() }} tersedia</span>
             </div>
 
@@ -94,7 +94,7 @@
                         @foreach ($availablePkls as $pkl)
                             <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 p-3 transition-colors hover:bg-slate-50">
                                 <input type="checkbox" name="pkl_ids[]" value="{{ $pkl->id }}"
-                                       class="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                                       class="h-4 w-4 rounded border-slate-300 text-brand-blue focus:ring-brand-blue">
                                 <div class="h-8 w-8 overflow-hidden rounded-full bg-slate-200">
                                     @if ($pkl->foto_profile)
                                         <img src="{{ asset('storage/' . $pkl->foto_profile) }}" alt="{{ $pkl->nama }}" class="h-full w-full object-cover">
@@ -113,7 +113,7 @@
                     </div>
 
                     <button type="submit"
-                            class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition-all hover:from-blue-700 hover:to-blue-800 active:scale-[0.98]">
+                            class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition-all hover:bg-deep-blue active:scale-[0.98]">
                         <i data-lucide="user-plus" class="h-4 w-4"></i>
                         Tambahkan ke Pembimbing
                     </button>

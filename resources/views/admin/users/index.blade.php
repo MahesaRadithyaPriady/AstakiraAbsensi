@@ -5,11 +5,11 @@
 @section('content')
     <div class="mb-6 flex items-center justify-between">
         <div>
-            <h1 class="text-2xl font-bold text-slate-800">Kelola Pengguna</h1>
+            <h1 class="text-2xl font-bold text-navy">Kelola Pengguna</h1>
             <p class="mt-1 text-sm text-slate-500">Daftar semua pengguna terdaftar</p>
         </div>
         <a href="{{ route('admin.users.create') }}"
-           class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition-all hover:from-blue-700 hover:to-blue-800 active:scale-[0.98]">
+           class="inline-flex items-center gap-2 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition-all hover:bg-deep-blue active:scale-[0.98]">
             <i data-lucide="user-plus" class="h-4 w-4"></i>
             Tambah Pengguna
         </a>
@@ -75,7 +75,7 @@
                             <td class="whitespace-nowrap px-6 py-4 text-right">
                                 <div class="flex items-center justify-end gap-2">
                                     <a href="{{ route('admin.users.edit', $item) }}"
-                                       class="rounded-lg p-2 text-slate-500 transition-colors hover:bg-blue-50 hover:text-blue-600"
+                                       class="rounded-lg p-2 text-slate-500 transition-colors hover:bg-primary-50 hover:text-brand-blue"
                                        title="Edit">
                                         <i data-lucide="pencil" class="h-4 w-4"></i>
                                     </a>

@@ -5,14 +5,14 @@
 @section('content')
     <div class="mb-6">
         <a href="{{ route('admin.users.index') }}"
-           class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 transition-colors hover:text-blue-600">
+           class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 transition-colors hover:text-brand-blue">
             <i data-lucide="arrow-left" class="h-4 w-4"></i>
             Kembali
         </a>
     </div>
 
     <div class="mb-6">
-        <h1 class="text-2xl font-bold text-slate-800">Edit Pengguna</h1>
+        <h1 class="text-2xl font-bold text-navy">Edit Pengguna</h1>
         <p class="mt-1 text-sm text-slate-500">Perbarui data pengguna</p>
     </div>
 
@@ -35,7 +35,7 @@
             <div>
                 <label for="nama" class="mb-1.5 block text-sm font-medium text-slate-700">Nama <span class="text-red-500">*</span></label>
                 <input type="text" id="nama" name="nama"
-                       class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 transition-all focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100 focus:outline-none @error('nama') border-red-400 @enderror"
+                       class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 transition-all focus:border-brand-blue focus:bg-white focus:ring-2 focus:ring-primary-100 focus:outline-none @error('nama') border-red-400 @enderror"
                        value="{{ old('nama', $user->nama) }}" required>
                 @error('nama') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
             </div>
@@ -44,7 +44,7 @@
             <div>
                 <label for="email" class="mb-1.5 block text-sm font-medium text-slate-700">Email <span class="text-red-500">*</span></label>
                 <input type="email" id="email" name="email"
-                       class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 transition-all focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100 focus:outline-none @error('email') border-red-400 @enderror"
+                       class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 transition-all focus:border-brand-blue focus:bg-white focus:ring-2 focus:ring-primary-100 focus:outline-none @error('email') border-red-400 @enderror"
                        value="{{ old('email', $user->email) }}" required>
                 @error('email') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
             </div>
@@ -53,7 +53,7 @@
             <div>
                 <label for="password" class="mb-1.5 block text-sm font-medium text-slate-700">Password</label>
                 <input type="password" id="password" name="password"
-                       class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 placeholder-slate-400 transition-all focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100 focus:outline-none @error('password') border-red-400 @enderror"
+                       class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 placeholder-slate-400 transition-all focus:border-brand-blue focus:bg-white focus:ring-2 focus:ring-primary-100 focus:outline-none @error('password') border-red-400 @enderror"
                        placeholder="Kosongkan jika tidak diubah">
                 @error('password') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
             </div>
@@ -62,7 +62,7 @@
             <div>
                 <label for="role" class="mb-1.5 block text-sm font-medium text-slate-700">Role <span class="text-red-500">*</span></label>
                 <select id="role" name="role"
-                        class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 transition-all focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100 focus:outline-none @error('role') border-red-400 @enderror">
+                        class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 transition-all focus:border-brand-blue focus:bg-white focus:ring-2 focus:ring-primary-100 focus:outline-none @error('role') border-red-400 @enderror">
                     <option value="">Pilih role</option>
                     <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>Admin</option>
                     <option value="karyawan" {{ old('role', $user->role) === 'karyawan' ? 'selected' : '' }}>Karyawan</option>
@@ -76,7 +76,7 @@
             <div>
                 <label for="tanggal_lahir" class="mb-1.5 block text-sm font-medium text-slate-700">Tanggal Lahir</label>
                 <input type="date" id="tanggal_lahir" name="tanggal_lahir"
-                       class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 transition-all focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100 focus:outline-none @error('tanggal_lahir') border-red-400 @enderror"
+                       class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 transition-all focus:border-brand-blue focus:bg-white focus:ring-2 focus:ring-primary-100 focus:outline-none @error('tanggal_lahir') border-red-400 @enderror"
                        value="{{ old('tanggal_lahir', $user->tanggal_lahir?->format('Y-m-d')) }}">
                 @error('tanggal_lahir') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
             </div>
@@ -85,7 +85,7 @@
             <div id="nisp-field">
                 <label for="nisp" class="mb-1.5 block text-sm font-medium text-slate-700">NISP</label>
                 <input type="text" id="nisp" name="nisp"
-                       class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 placeholder-slate-400 transition-all focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100 focus:outline-none @error('nisp') border-red-400 @enderror"
+                       class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 placeholder-slate-400 transition-all focus:border-brand-blue focus:bg-white focus:ring-2 focus:ring-primary-100 focus:outline-none @error('nisp') border-red-400 @enderror"
                        value="{{ old('nisp', $user->nisp) }}" placeholder="Hanya untuk role PKL" disabled>
                 <p id="nisp-hint" class="mt-1 text-xs text-slate-400">Hanya untuk role PKL, auto-generate.</p>
                 @error('nisp') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
@@ -95,14 +95,14 @@
             <div class="sm:col-span-2">
                 <label for="alamat" class="mb-1.5 block text-sm font-medium text-slate-700">Alamat</label>
                 <textarea id="alamat" name="alamat" rows="3"
-                          class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 placeholder-slate-400 transition-all focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100 focus:outline-none @error('alamat') border-red-400 @enderror">{{ old('alamat', $user->alamat) }}</textarea>
+                          class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-800 placeholder-slate-400 transition-all focus:border-brand-blue focus:bg-white focus:ring-2 focus:ring-primary-100 focus:outline-none @error('alamat') border-red-400 @enderror">{{ old('alamat', $user->alamat) }}</textarea>
                 @error('alamat') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
             </div>
 
             {{-- Foto Profile --}}
             <div class="sm:col-span-2">
                 <label class="mb-1.5 block text-sm font-medium text-slate-700">Foto Profile</label>
-                <div id="drop-zone" class="relative flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 px-6 py-10 text-center transition-all hover:border-blue-400 hover:bg-blue-50/50">
+                <div id="drop-zone" class="relative flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 px-6 py-10 text-center transition-all hover:border-primary-400 hover:bg-primary-50/50">
                     <input type="file" id="foto_profile" name="foto_profile" accept="image/*"
                            class="absolute inset-0 h-full w-full cursor-pointer opacity-0 @error('foto_profile') border-red-400 @enderror">
                     <div id="drop-placeholder" class="pointer-events-none text-center">
@@ -111,19 +111,19 @@
                                 <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="{{ $user->nama }}"
                                      class="h-32 w-32 rounded-xl object-cover border border-slate-200">
                             </div>
-                            <p class="text-sm font-medium text-slate-600">Drag & drop foto baru atau <span class="text-blue-600">klik untuk ganti</span></p>
+                            <p class="text-sm font-medium text-slate-600">Drag & drop foto baru atau <span class="text-brand-blue">klik untuk ganti</span></p>
                         @else
-                            <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
-                                <i data-lucide="upload-cloud" class="h-6 w-6 text-blue-600"></i>
+                            <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary-100">
+                                <i data-lucide="upload-cloud" class="h-6 w-6 text-brand-blue"></i>
                             </div>
-                            <p class="text-sm font-medium text-slate-600">Drag & drop foto di sini atau <span class="text-blue-600">klik untuk pilih</span></p>
+                            <p class="text-sm font-medium text-slate-600">Drag & drop foto di sini atau <span class="text-brand-blue">klik untuk pilih</span></p>
                         @endif
                         <p class="mt-1 text-xs text-slate-400">Format: JPG, JPEG, PNG, WebP. Maks 2MB. Kosongkan jika tidak diubah.</p>
                     </div>
                     <div id="drop-preview" class="hidden pointer-events-none text-center">
                         <img id="preview-img" src="" alt="Preview" class="mx-auto mb-3 h-32 w-32 rounded-xl object-cover border border-slate-200">
                         <p id="preview-name" class="text-sm font-medium text-slate-600"></p>
-                        <p class="mt-1 text-xs text-blue-600">Klik untuk ganti foto</p>
+                        <p class="mt-1 text-xs text-brand-blue">Klik untuk ganti foto</p>
                     </div>
                 </div>
                 @error('foto_profile') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
@@ -132,7 +132,7 @@
 
         <div class="mt-8 flex items-center gap-3">
             <button type="submit"
-                    class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition-all hover:from-blue-700 hover:to-blue-800 active:scale-[0.98]">
+                    class="inline-flex items-center gap-2 rounded-xl bg-brand-blue px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition-all hover:bg-deep-blue active:scale-[0.98]">
                 <i data-lucide="save" class="h-4 w-4"></i>
                 Perbarui
             </button>
@@ -158,11 +158,11 @@
             nispInput.readOnly = true;
             if (existingNisp) {
                 nispInput.value = existingNisp;
-                nispInput.classList.add('bg-blue-50', 'text-blue-600', 'font-medium');
+                nispInput.classList.add('bg-primary-50', 'text-brand-blue', 'font-medium');
                 nispHint.textContent = 'NISP sudah di-set dan tidak bisa diubah.';
             } else {
                 nispInput.value = 'Auto-generate saat simpan';
-                nispInput.classList.add('bg-blue-50', 'text-blue-600', 'font-medium');
+                nispInput.classList.add('bg-primary-50', 'text-brand-blue', 'font-medium');
                 nispHint.textContent = 'NISP akan auto-generate (AST-XXXX) saat simpan.';
             }
             nispHint.classList.remove('text-slate-400');
@@ -171,7 +171,7 @@
             nispInput.disabled = true;
             nispInput.readOnly = false;
             nispInput.value = '';
-            nispInput.classList.remove('bg-blue-50', 'text-blue-600', 'font-medium');
+            nispInput.classList.remove('bg-primary-50', 'text-brand-blue', 'font-medium');
             nispInput.placeholder = 'Hanya untuk role PKL';
             nispHint.textContent = 'Hanya untuk role PKL, auto-generate.';
             nispHint.classList.add('text-slate-400');
@@ -211,17 +211,17 @@
 
     dropZone.addEventListener('dragover', (e) => {
         e.preventDefault();
-        dropZone.classList.add('border-blue-500', 'bg-blue-50');
+        dropZone.classList.add('border-brand-blue', 'bg-primary-50');
     });
 
     dropZone.addEventListener('dragleave', (e) => {
         e.preventDefault();
-        dropZone.classList.remove('border-blue-500', 'bg-blue-50');
+        dropZone.classList.remove('border-brand-blue', 'bg-primary-50');
     });
 
     dropZone.addEventListener('drop', (e) => {
         e.preventDefault();
-        dropZone.classList.remove('border-blue-500', 'bg-blue-50');
+        dropZone.classList.remove('border-brand-blue', 'bg-primary-50');
         if (e.dataTransfer.files.length > 0) {
             fileInput.files = e.dataTransfer.files;
             showPreview(e.dataTransfer.files[0]);

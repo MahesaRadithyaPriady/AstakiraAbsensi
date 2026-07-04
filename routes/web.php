@@ -3,9 +3,11 @@
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\AdminAbsensiController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminLaporanController;
 use App\Http\Controllers\AdministratorLoginController;
 use App\Http\Controllers\PembimbingController;
 use App\Http\Controllers\PklDashboardController;
+use App\Http\Controllers\PklLaporanController;
 use App\Http\Controllers\ScanMachineController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\UserManagementController;
@@ -46,6 +48,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/absensi/{izinSakit}/approve', [AdminAbsensiController::class, 'approve'])->name('admin.absensi.approve');
     Route::post('/admin/absensi/{izinSakit}/reject', [AdminAbsensiController::class, 'reject'])->name('admin.absensi.reject');
     Route::delete('/admin/absensi/izin/{izinSakit}', [AdminAbsensiController::class, 'destroyIzinSakit'])->name('admin.absensi.izin.destroy');
+
+    Route::get('/admin/laporan', [AdminLaporanController::class, 'index'])->name('admin.laporan.index');
+    Route::get('/admin/laporan/{laporan}', [AdminLaporanController::class, 'show'])->name('admin.laporan.show');
+    Route::post('/admin/laporan/{laporan}/validate', [AdminLaporanController::class, 'validate'])->name('admin.laporan.validate');
+    Route::delete('/admin/laporan/{laporan}', [AdminLaporanController::class, 'destroy'])->name('admin.laporan.destroy');
 });
 
 Route::middleware(['auth', 'pkl'])->group(function () {
@@ -54,6 +61,9 @@ Route::middleware(['auth', 'pkl'])->group(function () {
     Route::post('/pkl/absensi/qr', [AbsensiController::class, 'generateQr'])->name('pkl.absensi.qr');
     Route::post('/pkl/absensi/izin', [AbsensiController::class, 'izinSakit'])->name('pkl.absensi.izin');
     Route::get('/pkl/absensi/check/{token}', [AbsensiController::class, 'check'])->name('pkl.absensi.check');
+
+    Route::get('/pkl/laporan', [PklLaporanController::class, 'index'])->name('pkl.laporan');
+    Route::post('/pkl/laporan', [PklLaporanController::class, 'store'])->name('pkl.laporan.store');
 });
 
 Route::get('/pkl/absensi/scan/{token}', [AbsensiController::class, 'scan'])->name('pkl.absensi.scan');

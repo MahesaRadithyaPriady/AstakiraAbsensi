@@ -7,12 +7,12 @@
     <title>Mesin Absensi - Scan QR</title>
     @vite(['resources/css/app.css', 'resources/js/scan-machine.js'])
 </head>
-<body class="min-h-screen bg-slate-950 text-white">
+<body class="min-h-screen bg-navy text-white">
     <div class="mx-auto max-w-4xl px-4 py-6">
         {{-- Header --}}
         <div class="mb-6 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-blue">
                     <i data-lucide="scan-line" class="h-6 w-6 text-white"></i>
                 </div>
                 <div>
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-2">
-                <div id="cam-status" class="flex items-center gap-2 rounded-lg bg-slate-800 px-3 py-1.5 text-sm">
+                <div id="cam-status" class="flex items-center gap-2 rounded-lg bg-deep-blue px-3 py-1.5 text-sm">
                     <div class="h-2 w-2 rounded-full bg-amber-500 animate-pulse"></div>
                     <span id="cam-status-text" class="text-slate-300">Menghubungkan kamera...</span>
                 </div>
@@ -29,11 +29,11 @@
         </div>
 
         {{-- Camera feed + scan overlay --}}
-        <div class="relative overflow-hidden rounded-2xl border border-slate-700 bg-black">
+        <div class="relative overflow-hidden rounded-2xl border border-deep-blue bg-black">
             <div class="relative aspect-[4/3] w-full">
                 <img id="camera-feed" src="" alt="Camera" class="absolute inset-0 h-full w-full object-cover">
                 <div id="camera-placeholder" class="absolute inset-0 flex flex-col items-center justify-center">
-                    <div class="mb-4 h-12 w-12 animate-spin rounded-full border-2 border-slate-600 border-t-blue-500"></div>
+                    <div class="mb-4 h-12 w-12 animate-spin rounded-full border-2 border-slate-600 border-t-brand-blue"></div>
                     <p class="text-sm text-slate-400">Menunggu kamera...</p>
                     <p class="mt-1 text-xs text-slate-500">http://{{ $cameraIp }}:{{ $cameraPort }}/</p>
                 </div>
@@ -41,11 +41,11 @@
                 {{-- Scan overlay --}}
                 <div class="pointer-events-none absolute inset-0">
                     <div class="absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2">
-                        <div class="absolute left-0 top-0 h-6 w-6 border-l-4 border-t-4 border-blue-500 rounded-tl-lg"></div>
-                        <div class="absolute right-0 top-0 h-6 w-6 border-r-4 border-t-4 border-blue-500 rounded-tr-lg"></div>
-                        <div class="absolute bottom-0 left-0 h-6 w-6 border-b-4 border-l-4 border-blue-500 rounded-bl-lg"></div>
-                        <div class="absolute bottom-0 right-0 h-6 w-6 border-b-4 border-r-4 border-blue-500 rounded-br-lg"></div>
-                        <div id="scan-line" class="absolute left-0 right-0 top-0 h-0.5 bg-blue-500 shadow-[0_0_10px_2px_rgba(59,130,246,0.8)] animate-scan"></div>
+                        <div class="absolute left-0 top-0 h-6 w-6 border-l-4 border-t-4 border-brand-blue rounded-tl-lg"></div>
+                        <div class="absolute right-0 top-0 h-6 w-6 border-r-4 border-t-4 border-brand-blue rounded-tr-lg"></div>
+                        <div class="absolute bottom-0 left-0 h-6 w-6 border-b-4 border-l-4 border-brand-blue rounded-bl-lg"></div>
+                        <div class="absolute bottom-0 right-0 h-6 w-6 border-b-4 border-r-4 border-brand-blue rounded-br-lg"></div>
+                        <div id="scan-line" class="absolute left-0 right-0 top-0 h-0.5 bg-brand-blue shadow-[0_0_10px_2px_rgba(11,94,215,0.8)] animate-scan"></div>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@
         <div class="mt-6">
             <h2 class="mb-3 text-sm font-semibold text-slate-400">Riwayat Scan Terakhir</h2>
             <div id="recent-scans" class="space-y-2 max-h-64 overflow-y-auto">
-                <div class="rounded-xl border border-slate-800 bg-slate-900 px-4 py-3 text-center text-sm text-slate-500">
+                <div class="rounded-xl border border-deep-blue bg-deep-blue/50 px-4 py-3 text-center text-sm text-slate-500">
                     Belum ada scan.
                 </div>
             </div>
@@ -129,7 +129,7 @@
                     </div>
                     <p class="text-sm text-red-400 font-medium">Gagal menghubungkan kamera</p>
                     <p class="mt-1 text-xs text-slate-500">Pastikan IP camera aktif di ${cameraStreamUrl}</p>
-                    <button onclick="startVideoStream()" class="mt-3 rounded-lg bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 hover:bg-slate-700">Coba lagi</button>
+                    <button onclick="startVideoStream()" class="mt-3 rounded-lg bg-deep-blue px-4 py-2 text-sm font-medium text-slate-300 hover:bg-brand-blue">Coba lagi</button>
                 </div>`;
             setCamStatus('error', 'Kamera terputus');
         };
@@ -265,7 +265,7 @@
             const colors = {
                 success: { bg: 'bg-emerald-900/50', border: 'border-emerald-600', text: 'text-emerald-300', icon: 'check-circle' },
                 error: { bg: 'bg-red-900/50', border: 'border-red-600', text: 'text-red-300', icon: 'x-circle' },
-                scanning: { bg: 'bg-blue-900/50', border: 'border-blue-600', text: 'text-blue-300', icon: 'loader' },
+                scanning: { bg: 'bg-brand-blue/20', border: 'border-brand-blue', text: 'text-primary-300', icon: 'loader' },
             };
             const c = colors[type] || colors.error;
 

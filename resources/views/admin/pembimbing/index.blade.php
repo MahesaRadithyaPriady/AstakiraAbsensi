@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="mb-6">
-        <h1 class="text-2xl font-bold text-slate-800">Pembimbing PKL</h1>
+        <h1 class="text-2xl font-bold text-navy">Pembimbing PKL</h1>
         <p class="mt-1 text-sm text-slate-500">Daftar pembimbing dan anak PKL yang dibimbing</p>
     </div>
 
@@ -51,7 +51,7 @@
                             </td>
                             <td class="whitespace-nowrap px-6 py-4 text-right">
                                 <a href="{{ route('admin.pembimbing.show', $pembimbing) }}"
-                                   class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-blue-600 transition-colors hover:bg-blue-50">
+                                   class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-brand-blue transition-colors hover:bg-primary-50">
                                     <i data-lucide="users" class="h-4 w-4"></i>
                                     Kelola Anak PKL
                                 </a>

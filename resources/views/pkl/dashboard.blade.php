@@ -3,10 +3,17 @@
 @section('title', 'Dashboard PKL')
 
 @section('content')
-    {{-- Welcome --}}
-    <div class="mb-6">
-        <h1 class="text-2xl font-bold text-slate-800">Halo, {{ $user->nama }}!</h1>
-        <p class="mt-1 text-sm text-slate-500">Selamat datang di dashboard PKL</p>
+    {{-- Welcome banner --}}
+    <div class="mb-6 overflow-hidden rounded-2xl bg-gradient-to-br from-navy via-deep-blue to-brand-blue p-6 text-white shadow-lg">
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="text-2xl font-bold">Halo, {{ $user->nama }}!</h2>
+                <p class="mt-1 text-sm text-slate-300">Selamat datang di dashboard PKL</p>
+            </div>
+            <div class="hidden h-16 w-16 items-center justify-center rounded-2xl bg-white/10 backdrop-blur sm:flex">
+                <i data-lucide="graduation-cap" class="h-8 w-8 text-white"></i>
+            </div>
+        </div>
     </div>
 
     {{-- Info cards --}}
@@ -14,12 +21,12 @@
         {{-- NISP --}}
         <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <div class="flex items-center gap-3">
-                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100">
-                    <i data-lucide="badge-info" class="h-5 w-5 text-blue-600"></i>
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-50">
+                    <i data-lucide="badge-info" class="h-5 w-5 text-brand-blue"></i>
                 </div>
                 <div>
                     <p class="text-xs font-medium text-slate-400">NISP</p>
-                    <p class="text-sm font-bold text-slate-700">{{ $user->nisp ?? '-' }}</p>
+                    <p class="text-sm font-bold text-navy">{{ $user->nisp ?? '-' }}</p>
                 </div>
             </div>
         </div>
@@ -32,7 +39,7 @@
                 </div>
                 <div>
                     <p class="text-xs font-medium text-slate-400">Status</p>
-                    <p class="text-sm font-bold text-slate-700">PKL</p>
+                    <p class="text-sm font-bold text-navy">PKL</p>
                 </div>
             </div>
         </div>
@@ -45,7 +52,7 @@
                 </div>
                 <div>
                     <p class="text-xs font-medium text-slate-400">Tanggal Lahir</p>
-                    <p class="text-sm font-bold text-slate-700">{{ $user->tanggal_lahir?->format('d M Y') ?? '-' }}</p>
+                    <p class="text-sm font-bold text-navy">{{ $user->tanggal_lahir?->format('d M Y') ?? '-' }}</p>
                 </div>
             </div>
         </div>
@@ -54,7 +61,7 @@
     {{-- Pembimbing info --}}
     <div class="rounded-2xl border border-slate-200 bg-white shadow-sm">
         <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
-            <h2 class="text-base font-semibold text-slate-800">Pembimbing Saya</h2>
+            <h2 class="text-base font-semibold text-navy">Pembimbing Saya</h2>
             <i data-lucide="user-check" class="h-5 w-5 text-slate-400"></i>
         </div>
 
@@ -84,7 +91,7 @@
                 <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-amber-100">
                     <i data-lucide="alert-triangle" class="h-8 w-8 text-amber-600"></i>
                 </div>
-                <h3 class="text-base font-semibold text-slate-700">Belum Memiliki Pembimbing</h3>
+                <h3 class="text-base font-semibold text-navy">Belum Memiliki Pembimbing</h3>
                 <p class="mt-1 max-w-sm text-sm text-slate-400">
                     Anda belum memiliki pembimbing yang ditugaskan. Silakan hubungi administrator untuk mendapatkan pembimbing.
                 </p>

@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="mb-6">
-        <h1 class="text-2xl font-bold text-slate-800">Absensi & Izin/Sakit</h1>
+        <h1 class="text-2xl font-bold text-navy">Absensi & Izin/Sakit</h1>
         <p class="mt-1 text-sm text-slate-500">Rekap absensi dan pengajuan izin/sakit PKL</p>
     </div>
 
@@ -20,8 +20,8 @@
         <form method="GET" action="{{ route('admin.absensi.index') }}" class="flex items-center gap-3">
             <label class="text-sm font-medium text-slate-600">Tanggal:</label>
             <input type="date" name="tanggal" value="{{ $selectedDate }}"
-                   class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm text-slate-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 focus:outline-none">
-            <button type="submit" class="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
+                   class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm text-slate-800 focus:border-brand-blue focus:ring-2 focus:ring-primary-100 focus:outline-none">
+            <button type="submit" class="inline-flex items-center gap-1.5 rounded-xl bg-brand-blue px-4 py-2 text-sm font-medium text-white hover:bg-deep-blue">
                 <i data-lucide="search" class="h-4 w-4"></i> Filter
             </button>
             @if (request('tanggal'))
@@ -36,10 +36,10 @@
     <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-4">
         <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <div class="flex items-center gap-3">
-                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100">
-                    <i data-lucide="users" class="h-5 w-5 text-slate-600"></i>
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-50">
+                    <i data-lucide="users" class="h-5 w-5 text-brand-blue"></i>
                 </div>
-                <div><p class="text-xs font-medium text-slate-400">Total PKL</p><p class="text-lg font-bold text-slate-700">{{ $pklUsers->count() }}</p></div>
+                <div><p class="text-xs font-medium text-slate-400">Total PKL</p><p class="text-lg font-bold text-navy">{{ $pklUsers->count() }}</p></div>
             </div>
         </div>
         <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -71,7 +71,7 @@
     {{-- Absensi harian per PKL --}}
     <div class="mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
         <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
-            <h2 class="text-base font-semibold text-slate-800">Absensi {{ \Carbon\Carbon::parse($selectedDate)->format('d M Y') }}</h2>
+            <h2 class="text-base font-semibold text-navy">Absensi {{ \Carbon\Carbon::parse($selectedDate)->format('d M Y') }}</h2>
             <i data-lucide="calendar-check" class="h-5 w-5 text-slate-400"></i>
         </div>
         <div class="overflow-x-auto">
@@ -113,10 +113,10 @@
     {{-- Riwayat Absensi --}}
     <div class="mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
         <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
-            <h2 class="text-base font-semibold text-slate-800">Riwayat Absensi</h2>
+            <h2 class="text-base font-semibold text-navy">Riwayat Absensi</h2>
             <form method="GET" action="{{ route('admin.absensi.index') }}" class="flex items-center gap-2">
                 <input type="hidden" name="tanggal" value="{{ request('tanggal') }}">
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama, NISP..." class="w-48 rounded-lg border border-slate-200 px-3 py-1.5 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 focus:outline-none">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama, NISP..." class="w-48 rounded-lg border border-slate-200 px-3 py-1.5 text-sm focus:border-brand-blue focus:ring-2 focus:ring-primary-100 focus:outline-none">
                 <button type="submit" class="inline-flex items-center gap-1 rounded-lg bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-200"><i data-lucide="search" class="h-3.5 w-3.5"></i></button>
             </form>
         </div>
@@ -157,16 +157,16 @@
     {{-- Pengajuan Izin/Sakit --}}
     <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
         <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
-            <h2 class="text-base font-semibold text-slate-800">Pengajuan Izin/Sakit</h2>
+            <h2 class="text-base font-semibold text-navy">Pengajuan Izin/Sakit</h2>
             <form method="GET" action="{{ route('admin.absensi.index') }}" class="flex items-center gap-2" id="izin-filter">
                 <input type="hidden" name="tanggal" value="{{ request('tanggal') }}">
-                <select name="status_izin" onchange="document.getElementById('izin-filter').submit()" class="rounded-lg border border-slate-200 px-3 py-1.5 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 focus:outline-none">
+                <select name="status_izin" onchange="document.getElementById('izin-filter').submit()" class="rounded-lg border border-slate-200 px-3 py-1.5 text-sm focus:border-brand-blue focus:ring-2 focus:ring-primary-100 focus:outline-none">
                     <option value="">Semua Status</option>
                     <option value="pending" {{ request('status_izin') === 'pending' ? 'selected' : '' }}>Pending</option>
                     <option value="approved" {{ request('status_izin') === 'approved' ? 'selected' : '' }}>Disetujui</option>
                     <option value="rejected" {{ request('status_izin') === 'rejected' ? 'selected' : '' }}>Ditolak</option>
                 </select>
-                <select name="jenis_izin" onchange="document.getElementById('izin-filter').submit()" class="rounded-lg border border-slate-200 px-3 py-1.5 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 focus:outline-none">
+                <select name="jenis_izin" onchange="document.getElementById('izin-filter').submit()" class="rounded-lg border border-slate-200 px-3 py-1.5 text-sm focus:border-brand-blue focus:ring-2 focus:ring-primary-100 focus:outline-none">
                     <option value="">Semua Jenis</option>
                     <option value="izin" {{ request('jenis_izin') === 'izin' ? 'selected' : '' }}>Izin</option>
                     <option value="sakit" {{ request('jenis_izin') === 'sakit' ? 'selected' : '' }}>Sakit</option>
@@ -198,7 +198,7 @@
                             <td class="whitespace-nowrap px-6 py-4"><span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium {{ $izin->jenis === 'sakit' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700' }}">{{ ucfirst($izin->jenis) }}</span></td>
                             <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-600">{{ $izin->tanggal->format('d M Y') }}@if ($izin->sampai_tanggal)<br><span class="text-slate-400">s/d</span> {{ $izin->sampai_tanggal->format('d M Y') }}@endif</td>
                             <td class="px-6 py-4 text-sm text-slate-600 max-w-xs truncate">{{ $izin->keterangan }}</td>
-                            <td class="whitespace-nowrap px-6 py-4">@if ($izin->surat)<a href="{{ asset('storage/' . $izin->surat) }}" target="_blank" class="inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-700"><i data-lucide="file" class="h-4 w-4"></i> Lihat</a>@else<span class="text-xs text-slate-400">-</span>@endif</td>
+                            <td class="whitespace-nowrap px-6 py-4">@if ($izin->surat)<a href="{{ asset('storage/' . $izin->surat) }}" target="_blank" class="inline-flex items-center gap-1.5 text-sm font-medium text-brand-blue hover:text-deep-blue"><i data-lucide="file" class="h-4 w-4"></i> Lihat</a>@else<span class="text-xs text-slate-400">-</span>@endif</td>
                             <td class="whitespace-nowrap px-6 py-4 text-center"><span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium {{ $izin->status_approval === 'pending' ? 'bg-amber-100 text-amber-700' : ($izin->status_approval === 'approved' ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700') }}">{{ ucfirst($izin->status_approval) }}</span></td>
                             <td class="whitespace-nowrap px-6 py-4 text-right">
                                 <div class="flex items-center justify-end gap-2">
