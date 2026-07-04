@@ -4,16 +4,17 @@
 
 @section('content')
 <div class="space-y-6">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-            <h1 class="text-2xl font-bold text-navy">SOP PKL</h1>
+            <h1 class="text-xl font-bold text-navy sm:text-2xl">SOP PKL</h1>
             <p class="mt-1 text-sm text-slate-500">Kelola Standar Operasional Prosedur untuk PKL</p>
         </div>
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 shrink-0">
             <a href="{{ route('admin.sop.create') }}"
-               class="inline-flex items-center gap-2 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition-all hover:bg-deep-blue active:scale-[0.98]">
+               class="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition-all hover:bg-deep-blue active:scale-[0.98]">
                 <i data-lucide="plus" class="h-4 w-4"></i>
-                Tambah SOP
+                <span class="hidden sm:inline">Tambah SOP</span>
+                <span class="sm:hidden">Tambah</span>
             </a>
         </div>
     </div>

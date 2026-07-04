@@ -7,6 +7,9 @@ use App\Http\Controllers\AdminLaporanController;
 use App\Http\Controllers\AdminSopController;
 use App\Http\Controllers\AdministratorLoginController;
 use App\Http\Controllers\PembimbingController;
+use App\Http\Controllers\PembimbingDashboardController;
+use App\Http\Controllers\PembimbingAbsensiController;
+use App\Http\Controllers\PembimbingLaporanController;
 use App\Http\Controllers\PklDashboardController;
 use App\Http\Controllers\PklLaporanController;
 use App\Http\Controllers\PklSopController;
@@ -87,3 +90,10 @@ Route::middleware(['auth', 'pkl'])->group(function () {
 });
 
 Route::get('/pkl/absensi/scan/{token}', [AbsensiController::class, 'scan'])->name('pkl.absensi.scan');
+
+Route::middleware(['auth', 'pembimbing'])->group(function () {
+    Route::get('/pembimbing', [PembimbingDashboardController::class, 'index'])->name('pembimbing.dashboard');
+    Route::get('/pembimbing/absensi', [PembimbingAbsensiController::class, 'index'])->name('pembimbing.absensi.index');
+    Route::get('/pembimbing/laporan', [PembimbingLaporanController::class, 'index'])->name('pembimbing.laporan.index');
+    Route::get('/pembimbing/laporan/{laporan}', [PembimbingLaporanController::class, 'show'])->name('pembimbing.laporan.show');
+});

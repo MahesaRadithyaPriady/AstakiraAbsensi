@@ -3,15 +3,16 @@
 @section('title', 'Kelola Pengguna')
 
 @section('content')
-    <div class="mb-6 flex items-center justify-between">
+    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-            <h1 class="text-2xl font-bold text-navy">Kelola Pengguna</h1>
+            <h1 class="text-xl font-bold text-navy sm:text-2xl">Kelola Pengguna</h1>
             <p class="mt-1 text-sm text-slate-500">Daftar semua pengguna terdaftar</p>
         </div>
         <a href="{{ route('admin.users.create') }}"
-           class="inline-flex items-center gap-2 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition-all hover:bg-deep-blue active:scale-[0.98]">
+           class="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition-all hover:bg-deep-blue active:scale-[0.98] shrink-0">
             <i data-lucide="user-plus" class="h-4 w-4"></i>
-            Tambah Pengguna
+            <span class="hidden sm:inline">Tambah Pengguna</span>
+            <span class="sm:hidden">Tambah</span>
         </a>
     </div>
 

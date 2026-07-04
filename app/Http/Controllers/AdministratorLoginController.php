@@ -48,6 +48,6 @@ class AdministratorLoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/administrator/login');
+        return redirect('/');
     }
 }

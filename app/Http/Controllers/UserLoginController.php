@@ -41,7 +41,7 @@ class UserLoginController extends Controller
         return match ($user->role) {
             'karyawan' => redirect()->intended('/karyawan'),
             'pkl' => redirect()->intended('/pkl'),
-            'pembimbing' => redirect()->intended('/pembimbing'),
+            'pembimbing' => redirect()->route('pembimbing.dashboard'),
             default => redirect()->intended('/'),
         };
     }
@@ -53,6 +53,6 @@ class UserLoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/');
     }
 }

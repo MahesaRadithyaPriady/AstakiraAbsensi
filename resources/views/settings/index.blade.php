@@ -1,4 +1,4 @@
-@extends(auth()->user()->isAdmin() ? 'admin.layout' : 'pkl.layout')
+@extends(auth()->user()->isAdmin() ? 'admin.layout' : (auth()->user()->isPembimbing() ? 'pembimbing.layout' : 'pkl.layout'))
 
 @section('title', 'Pengaturan')
 

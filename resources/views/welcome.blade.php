@@ -55,21 +55,41 @@
                         <p class="mt-1 text-sm text-slate-500">Silakan masuk untuk melanjutkan</p>
                     </div>
 
-                    @if (Route::has('login'))
+                    @if (Route::has('user.login') && Route::has('login'))
                         <div class="space-y-3">
                             @auth
-                                <a href="{{ url('/dashboard') }}"
-                                   class="flex items-center justify-center gap-2 rounded-xl bg-brand-blue px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition hover:bg-deep-blue">
-                                    <i data-lucide="layout-dashboard" class="h-4 w-4"></i>
-                                    <span>Dashboard</span>
-                                </a>
+                                @if (auth()->user()->isAdmin())
+                                    <a href="{{ route('admin.dashboard') }}"
+                                       class="flex items-center justify-center gap-2 rounded-xl bg-brand-blue px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition hover:bg-deep-blue">
+                                        <i data-lucide="layout-dashboard" class="h-4 w-4"></i>
+                                        <span>Dashboard Admin</span>
+                                    </a>
+                                @elseif (auth()->user()->isPkl())
+                                    <a href="{{ route('pkl.dashboard') }}"
+                                       class="flex items-center justify-center gap-2 rounded-xl bg-brand-blue px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition hover:bg-deep-blue">
+                                        <i data-lucide="layout-dashboard" class="h-4 w-4"></i>
+                                        <span>Dashboard PKL</span>
+                                    </a>
+                                @elseif (auth()->user()->isPembimbing())
+                                    <a href="{{ route('pembimbing.dashboard') }}"
+                                       class="flex items-center justify-center gap-2 rounded-xl bg-brand-blue px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition hover:bg-deep-blue">
+                                        <i data-lucide="layout-dashboard" class="h-4 w-4"></i>
+                                        <span>Dashboard Pembimbing</span>
+                                    </a>
+                                @else
+                                    <a href="{{ route('settings.index') }}"
+                                       class="flex items-center justify-center gap-2 rounded-xl bg-brand-blue px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition hover:bg-deep-blue">
+                                        <i data-lucide="layout-dashboard" class="h-4 w-4"></i>
+                                        <span>Dashboard</span>
+                                    </a>
+                                @endif
                             @else
-                                <a href="{{ route('login') }}"
+                                <a href="{{ route('user.login') }}"
                                    class="flex items-center justify-center gap-2 rounded-xl bg-brand-blue px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition hover:bg-deep-blue">
                                     <i data-lucide="log-in" class="h-4 w-4"></i>
                                     <span>Login Pengguna</span>
                                 </a>
-                                <a href="/administrator/login"
+                                <a href="{{ route('login') }}"
                                    class="flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-navy transition hover:border-brand-blue hover:bg-primary-50">
                                     <i data-lucide="shield" class="h-4 w-4"></i>
                                     <span>Login Admin</span>
