@@ -120,25 +120,29 @@
                 <i data-lucide="file-text" class="h-5 w-5 text-slate-400"></i>
             </div>
 
-            <div class="border-b border-slate-100 bg-primary-50/50 px-6 py-3">
-                <div class="flex items-start gap-2.5">
-                    <i data-lucide="heart-handshake" class="mt-0.5 h-4 w-4 shrink-0 text-brand-blue"></i>
-                    <div class="flex-1">
-                        <p class="text-xs font-medium text-navy">Doa untuk Anda</p>
-                        <p class="mt-0.5 text-xs leading-relaxed text-slate-500">
-                            "Semoga Allah memberikan kesembuhan bagi yang sakit dan memudahkan urusan bagi yang mengajukan izin. Semoga kesehatan dan keberkahan selalu menyertai Anda dalam menjalani PKL."
-                        </p>
-                        <div class="flex justify-end">
-                            <button id="doa-love-btn" type="button"
-                                class="shrink-0 text-slate-300 transition-all hover:scale-110">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-                            </button>
+            @if ($izinSakitToday)
+                <div class="border-b border-slate-100 bg-primary-50/50 px-6 py-3">
+                    <div class="flex items-start gap-2.5">
+                        <i data-lucide="heart-handshake" class="mt-0.5 h-4 w-4 shrink-0 text-brand-blue"></i>
+                        <div class="flex-1">
+                            <p class="text-xs font-medium text-navy">Doa untuk Anda</p>
+                            <p class="mt-0.5 text-xs leading-relaxed text-slate-500">
+                                @if ($izinSakitToday->jenis === 'sakit')
+                                    "Semoga Allah memberikan kesembuhan dan kesehatan selalu menyertai Anda. Semoga lekas sehat dan dapat kembali beraktivitas dengan baik."
+                                @else
+                                    "Semoga Allah memudahkan urusan Anda. Semoga keberkahan selalu menyertai Anda dalam menjalani PKL."
+                                @endif
+                            </p>
+                            <div class="flex justify-end">
+                                <button id="doa-love-btn" type="button"
+                                    class="shrink-0 text-slate-300 transition-all hover:scale-110">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            @if ($izinSakitToday)
                 <div class="p-6">
                     <div class="flex flex-col items-center justify-center py-8 text-center">
                         <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full
